@@ -3,6 +3,7 @@ import { VictorServiceService } from '../apiService/victor-service.service';
 import { Company } from '../modal/company';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {throwError} from 'rxjs';
 @Component({
   selector: 'app-managecompanies',
   templateUrl: './managecompanies.component.html',
@@ -13,8 +14,7 @@ companies: Company[];
 dCompany: Company;
 sCompany : Company;
 loading=false;
-  constructor(private cmpsrv: VictorServiceService, private router: Router,
-  private spinner:NgxSpinnerService) {
+  constructor(private cmpsrv: VictorServiceService, private router: Router) {
     this.companies = [];
     this.sCompany = new Company();
     this.loading=true;
@@ -22,7 +22,15 @@ loading=false;
      // console.log(data);
       this.companies = data;
       this.loading=false;
-    });
+    },
+    error => {
+              this.loading = false;
+              alert('Your session has been expired! Login Again');
+              this.router.navigate(['']);
+              console.error("Error in get Api of companies!");
+              return throwError(error);  // Angular 6/RxJS 6
+             }
+    );
 
    }
 
