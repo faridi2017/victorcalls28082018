@@ -26,6 +26,7 @@ loading=false;
     error => {
               this.loading = false;
               alert('Your session has been expired! Login Again');
+              sessionStorage.clear();
               this.router.navigate(['']);
               console.error("Error in get Api of companies!");
               return throwError(error);  // Angular 6/RxJS 6
