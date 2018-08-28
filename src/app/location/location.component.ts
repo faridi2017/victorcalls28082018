@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl , Validators } from '@angular/forms';
 import { element } from 'protractor';
 import { Company } from '../modal/company';
+import {throwError} from 'rxjs';
 declare var ol: any;
 @Component({
   selector: 'app-location',
@@ -17,6 +18,7 @@ export class LocationComponent implements OnInit {
 showPosition;
 companies: Company[];
 lblPro=false;
+SuperAdminB=true;
 lbldistt=false;
 lblmessage=false;
 lblLocation=false;
@@ -42,13 +44,6 @@ project: Project;
   distance;
   earthRadius = 6373.0; // in km approx
   constructor(private userService: VictorServiceService, private router: Router ) {
-    this.loading=true;
-    this.userService.getAllCompanies().subscribe((data: Company[])=>{
-      // console.log(data);
-       this.companies = data;
-       console.log('CompanyList',this.companies);
-       this.loading=false;
-     });
     this.project = new Project();
     this.createProjectForm=new FormGroup({
       'locationName':new FormControl('',Validators.compose([Validators.required])),
@@ -60,6 +55,28 @@ project: Project;
       'companyId':new FormControl('',Validators.compose([Validators.required])),
 
     });
+    
+    if(sessionStorage.getItem('role')==='SuperAdmin'){
+      this.loading=true;
+      this.userService.getAllCompanies().subscribe((data: Company[])=>{
+        // console.log(data);
+         this.companies = data;
+         this.SuperAdminB = true;
+         console.log('CompanyList',this.companies);
+        // this.project.companyId= +sessionStorage.getItem('CompanyId');
+         this.loading=false;
+       },error=>{
+         this.loading = false;
+         console.error('Error in get Api, Companies!');
+        return throwError(error);
+       });
+    }else{
+        this.SuperAdminB = false;
+        this.project.companyId= +sessionStorage.getItem('CompanyId');
+        console.log('company id:',this.project.companyId);
+    }
+   
+    
    }
 
   ngOnInit() {
@@ -136,8 +153,12 @@ createProject(createProjectForm){
     this.userService.postProject(this.project).subscribe((res: any)=>{
       console.log('success',res);
       this.loading=false;
-      alert('Project Create Successfully');
+      alert('Project Created Successfully');
       this.router.navigateByUrl('/superadmin/projects');
+    },error=>{
+      this.loading = false;
+      console.error('Error in post Api, create project');
+     return throwError(error);
     });
     
     //this.router.navigateByUrl('/superadmin/projects');
@@ -174,14 +195,16 @@ validateLocation(event:any){
   }
 }
 validateComp(){
- this.project.companyId=1;
+ //this.project.companyId=1;
+ 
  for(let i=0;i<=this.companies.length;i++){
    if(this.companyName===this.companies[i].companyName){
      this.project.companyId=this.companies[i].companyId;
-     return;
+     break;
    }
 
  }
+console.log('selected Company Id:',this.project.companyId);
     this.lblComp=true;
    
 

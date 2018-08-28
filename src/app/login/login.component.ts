@@ -68,6 +68,7 @@ public userData: User;
                   
                     console.log('loginurl response', res);
                     sessionStorage.setItem('role',res.rolename);
+                    sessionStorage.setItem('CompanyId',res.CompanyId);
                  // let ress = JSON.stringify(res);
                  //  console.log(ress["userName"]);
                   sessionStorage.setItem('roleId', res.roleid);
