@@ -48,7 +48,7 @@ export class CreateDocumentComponent implements OnInit {
 // this.srv.uploadsDocument(frmData,sessionStorage.getItem('prjID')).subscribe(res=>{
  // console.log('form data',frmData);
  this.loading=true;
-  this.srv.uploadsDocument(frmData,1).subscribe(res=>{
+  this.srv.uploadsDocument(frmData,sessionStorage.getItem('prjID')).subscribe(res=>{
     console.log('Document Added',res);
     this.loading=false;
     alert('file uploaded successfully');

@@ -63,6 +63,7 @@ import { VchomeComponent } from './vchome/vchome.component';
 //import { NgxCountrySelectModule } from 'ngx-country-select';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { CreateDocumentComponent } from './create-document/create-document.component';
+import { TemptestComponent } from './temptest/temptest.component';
 
 
 
@@ -102,7 +103,8 @@ const appRoutes: Routes = [
           {path: 'createCompany',component: CreatecompanyComponent},
           {path: 'updateCompany',component: UpdateCompanyComponent},
           {path: 'vcdashboard',component: VcdashboardComponent},
-          {path: 'createDocument',component: CreateDocumentComponent}
+          {path: 'createDocument',component: CreateDocumentComponent},
+          {path: 'temptest',component: TemptestComponent}
         //  {path: 'logout', component: }
     ]},
 
@@ -157,7 +159,8 @@ const appRoutes: Routes = [
     CreateintegrationComponent,
     VcdashboardComponent,
     VchomeComponent,
-    CreateDocumentComponent
+    CreateDocumentComponent,
+    TemptestComponent
    
      ],
   imports: [

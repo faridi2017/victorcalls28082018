@@ -33,7 +33,7 @@ export class ManageProjectsComponent implements OnInit {
 address: any;
 geoAddress: any;
   form1 = false;
-  postAddDocUrl ='http://192.168.1.10:5000/api/victor/addDocument';
+
 bExcel = false;
   form2 = false;
   projects: Project[];
