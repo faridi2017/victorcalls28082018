@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Registration } from '../modal/Registration';
 import { VictorServiceService } from '../apiService/victor-service.service';
 import { Router } from '@angular/router';
-
+  import {throwError} from 'rxjs';
 @Component({
   selector: 'app-updateuser',
   templateUrl: './updateuser.component.html',
@@ -13,7 +13,7 @@ export class UpdateuserComponent implements OnInit {
   users: Registration[];
   cpy=false;
   updateIndex;
-  companyIds =[1,2,3,4,5];
+  //companyIds =[1,2,3,4,5];
   updatedUser: Registration;
   cpn=false;
   roles: string[];
@@ -66,7 +66,7 @@ export class UpdateuserComponent implements OnInit {
       //  console.log(this.user.roleName);
       }
     selectedProject(){
-      console.log(this.user.projectName);
+    //  console.log(this.user.projectName);
        
     }
     selectedCompanyId(){
@@ -79,9 +79,19 @@ export class UpdateuserComponent implements OnInit {
   //  console.log(this.user.userName);
     this.usersrv.updateUser(this.updatedUser).subscribe((res: any)=>{
      console.log(res);
-    });
+     alert('update user successfully');
+     this.router.navigate(['/userhome/manageUser']);
+
+    },error=>{
+      console.error('error in post api of update user');
+      alert(' could not be updated, Try again');
+      this.router.navigateByUrl('/userhome/manageIntegrations');
+      return throwError(error);
+      
+    }
+  );
     }
     cancelUpdate(){
-      this.router.navigate(['/superadmin/manageUser']);
+      this.router.navigate(['/userhome/manageUser']);
     }
 }

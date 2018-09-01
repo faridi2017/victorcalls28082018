@@ -12,7 +12,6 @@ export class Registration {
     firstName: string;
     lastName: string;
     roleId: string;
-    projectName: string;
     role: Role;
     project: Project;
     createdDateTime: Date;

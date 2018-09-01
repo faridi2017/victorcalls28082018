@@ -1,0 +1,14 @@
+@media only screen and (max-width: 768px) {
+    .logo-wapper{
+        margin-left:40px;
+        
+       }  
+       .auth.auth-bg-1{
+           background-image: linear-gradient(#e37230, #e8a645);
+           
+       }
+       .auth.theme-one .auto-form-wrapper{
+           margin-top: 50px;
+       }
+    
+}

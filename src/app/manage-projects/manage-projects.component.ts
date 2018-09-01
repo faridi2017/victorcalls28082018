@@ -56,7 +56,12 @@ this.document = new Document();
   this.loading=false;
   this.bExcel =true;
   
-});
+}, error=>{
+   this.loading=false;
+   console.log('Error in get all projects api, try again');
+   return throwError(error);
+}
+);
  }
 
   ngOnInit() {
@@ -72,14 +77,14 @@ this.document = new Document();
     //this.data.changeMessage(projectID);
 
     //this.clicked.emit(projectID);
-    this.router.navigate(['superadmin/document']);
+    this.router.navigate(['userhome/document']);
 
   }
   
  
          
   createProject(){
-    this.router.navigate(['superadmin/location']);
+    this.router.navigate(['userhome/location']);
    
   }
   

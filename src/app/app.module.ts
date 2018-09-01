@@ -69,7 +69,7 @@ import { TemptestComponent } from './temptest/temptest.component';
 
 const appRoutes: Routes = [
 { path: '', component: LoginComponent },
-  { path: 'superadmin', component: VchomeComponent,
+  { path: 'userhome', component: VchomeComponent,
  
   children: [{path: '', component: MainComponent},
           {path: 'home', component: MainComponent},

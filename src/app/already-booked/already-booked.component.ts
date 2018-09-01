@@ -3,8 +3,8 @@ import { MyLead } from '../modal/MyLead';
 import { VictorServiceService } from '../apiService/victor-service.service';
 import {throwError} from 'rxjs';
 import { MyItems } from '../modal/MyItems';
-import {HttpResponse } from '@angular/common/http';
-import { RouterModule, Routes, NavigationEnd, Router } from '@angular/router';
+
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-already-booked',

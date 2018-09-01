@@ -101,7 +101,7 @@ export class CreatecompanyComponent implements OnInit {
    this.loading=false;
       alert('Company Added Successfully');
 
-      this.router.navigateByUrl('/superadmin/manageCompanies');
+      this.router.navigateByUrl('/userhome/manageCompanies');
     },error =>{
       this.loading=false;
       console.error('error in post api of create Company');

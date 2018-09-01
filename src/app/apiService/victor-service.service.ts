@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ResourceURI } from '../apilist/ResourceURI';
 import { Registration } from '../modal/Registration';
 import { ResourceLoader } from '@angular/compiler';
+import { Integrations } from '../modal/integrations';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 //import 'rxjs/add/observable/merge';
@@ -152,6 +153,10 @@ public postProject(project: Project):Observable<any>{
         
          
          
+          updateCompany(cmp: Company,companyId):Observable<any>{
+            return this.http.put( ResourceURI.uCompany + companyId,cmp, httpOptions);
+          // return  this.http.post(this.postAddDocUrl, formData, options)
+          }
           postAddCompany(cmp: Company ):Observable<any>{
             return this.http.post( ResourceURI.pCompany,cmp, httpOptions);
           // return  this.http.post(this.postAddDocUrl, formData, options)
@@ -188,9 +193,9 @@ public postProject(project: Project):Observable<any>{
             return this.http.get(ResourceURI.gCompanies, httpOptionsAuthG);
           }
          
-          addCompany(id){
-            return this.http.get(ResourceURI.pCompany, httpOptions);
-          }
+         // addCompany(id){
+           // return this.http.get(ResourceURI.pCompany, httpOptions);
+         // }
           deleteCompany(id){
             return this.http.get(ResourceURI.dCompany, httpOptions);
           }
@@ -198,8 +203,8 @@ public postProject(project: Project):Observable<any>{
           public getIntegrations(compId){
             return this.http.get(ResourceURI.gIntegrataions + compId+ '/Integrations', httpOptions);
           }  
-          public postIntegrations(cid){
-            return this.http.get(ResourceURI.pIntegration + cid + '/Integrations', httpOptions);
+          public postIntegrations(cid, newIntegration:Integrations){
+            return this.http.post(ResourceURI.pIntegration + cid + '/Integrations',newIntegration, httpOptions);
           }  
           public getCompany(id){
           
@@ -217,3 +222,26 @@ public postProject(project: Project):Observable<any>{
 
 //https://angular.io/guide/form-validation
 //https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/
+/*
+
+{
+        "companyId": 3,
+        "companyName": "Brandsbrother",
+        "email": "info@brandsbrother.com",
+        "phone": "starrr@gmail.com",
+        "companyAddress": "10, Teachers COlony",
+        "city": "Ghaziabadd",
+        "state": "U.P",
+        "country": "India",
+        "contactPersonName": "Amitt Bhatia",
+        "contactPhone": "9891234567",
+        "contactEmail": "amitk@stargroup.com",
+        "activatedTill": "2008-05-01T08:30:00",
+        "isActivated": false,
+        "companyType": 1,
+        "logopath": null,
+        "integrations": null
+    }
+
+
+*/

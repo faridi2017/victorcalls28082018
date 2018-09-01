@@ -4,6 +4,7 @@ import { VictorServiceService } from '../apiService/victor-service.service';
 import { Router } from '@angular/router';
 import { Role } from '../modal/Role';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { throwError } from 'rxjs';
 @Component({
   selector: 'app-manageuser',
   templateUrl: './manageuser.component.html',
@@ -25,11 +26,13 @@ display;
     this.userService.getAllUser(sessionStorage.getItem('userName')).subscribe((data: Registration[])=>{
       this.users = data;
       this.loading=false;
-      //console.log(this.users);
-     // console.log(this.users);
       
-      //console.log('projects', this.projects);
-    });
+    }, error=>{
+      this.loading=false;
+      console.error('Error in get all user api, try again later');
+      return throwError(error);
+    }
+  );
 
    }
 
@@ -45,7 +48,7 @@ display;
 updateUser(id:string){
   console.log('updateUser');
   sessionStorage.setItem('updateId',id);
-  this.router.navigate(['/superadmin/updateUser']);
+  this.router.navigate(['/userhome/updateUser']);
 }
 deleteUser(userD:Registration){
  // console.log('deleteUser');
@@ -56,7 +59,7 @@ deleteUser(userD:Registration){
 
 createUser(){
   console.log('createUser');
- this.router.navigate(['/superadmin/createuser']);
+ this.router.navigate(['/userhome/createuser']);
 }
 confirmDelete(){
   console.log('confirm delete');

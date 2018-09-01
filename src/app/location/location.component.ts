@@ -168,19 +168,17 @@ createProject(createProjectForm){
 }
 cancelProject(){
   console.log('Cancel Project');
-  this.router.navigate(['/superadmin/projects']);
+  this.router.navigate(['/userhome/projects']);
 }
-validatePro(event:any){
-  
-if(event.target.value.length==0||event.target.value==" "){
-  this.lblPro=true;
-    console.log(this.lblPro);  
-    return;
+validatePro(){
+  console.log(this.project.projectName);
+  let rex = /^[a-zA-Z\s]{2,50}$/;
+  if (rex.test(this.project.projectName)==false) {
+    this.lblPro = true;
+  } else {
+    this.lblPro=false;
+  }  
 
-  }else{
-  this.lblPro=false;
-  return;
-  }
 }
 validateLocation(event:any){
   if(event.target.value.length==0 || event.target.value==" "){
@@ -194,6 +192,8 @@ validateLocation(event:any){
 
   }
 }
+
+
 validateComp(){
  //this.project.companyId=1;
  
@@ -209,28 +209,40 @@ console.log('selected Company Id:',this.project.companyId);
    
 
 }
-validateDes(event:any){
-  if(event.target.value.length==0 || event.target.value==" "){
-   this.lblmessage=true;
-   console.log(this.lblmessage);
-   return;
-  }else{
-    this.lblmessage=false;
-    return;
-
-  }
-}
-validateDis(event:any){
-  if(event.target.value.length==0 || event.target.value==" "){
-    this.lbldistt=true;
-    console.log(this.lbldistt);
-    return;
-
-  }else{
-    this.lbldistt=false;
-    return;
-
-  }
+validateDes(){
+  let rex = /^[^&-_@\s][A-Za-z0-9.&@-_#\s]{2,100}$/;
+    console.log(this.project.description);
+     
+    if(rex.test(this.project.description)==true)
+       {
+          this.lblmessage = false;
+          console.log('match');
+          return;  
+        }else{
+                this.lblmessage=true;
+                console.log('not match');
+                return;
+              }
 
 }
+validateDis(){
+  let rex = /^[^&-_@\s][A-Za-z0-9.&@-_#\s]{2,100}$/;
+  console.log(this.project.district);
+   
+  if(rex.test(this.project.district)==true)
+     {
+        this.lbldistt = false;
+        console.log('match');
+        return;  
+      }else{
+              this.lbldistt = true;
+              console.log('not match');
+              return;
+            }
+
 }
+
+
+
+}
+

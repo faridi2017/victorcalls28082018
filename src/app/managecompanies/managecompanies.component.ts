@@ -38,15 +38,15 @@ loading=false;
   ngOnInit() {
   
   }
-  updateCompany(id:string){
+  updateCompany(id){
     console.log('updateCompany');
     sessionStorage.setItem('companyId',id);
-    this.router.navigate(['/superadmin/updateCompany']);
+    this.router.navigate(['/userhome/updateCompany']);
   }
   
   createCompany(){
     console.log('createCompany');
-   this.router.navigate(['/superadmin/createCompany']);
+   this.router.navigate(['/userhome/createCompany']);
 
   }
   showForm(){
@@ -63,8 +63,9 @@ loading=false;
   confirmDelete(){
     console.log('confirm delete');
   }
-  integration(companyId){
-      sessionStorage.setItem('compId',companyId);
-      this.router.navigate(['/superadmin/manageIntegrations']);
+  integration(companyId,name){
+      sessionStorage.setItem('integCmpId',companyId);
+      sessionStorage.setItem('integCmpName',name);
+      this.router.navigate(['/userhome/manageIntegrations']);
   }
 }

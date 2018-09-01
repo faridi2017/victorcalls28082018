@@ -42,7 +42,7 @@ export class MyfileComponent implements OnInit {
   }
 
   cancel(){
-    this.router.navigate(['/superadmin/home']);
+    this.router.navigate(['/userhome/home']);
   }
   
  uploadExcelFiles(){
@@ -54,7 +54,7 @@ export class MyfileComponent implements OnInit {
     console.log('excel file uploaded',res);
     alert('file uploaded successfully');
   });
-  this.router.navigate(['/superadmin/home']);
+  this.router.navigate(['/userhome/home']);
  }
 
 }

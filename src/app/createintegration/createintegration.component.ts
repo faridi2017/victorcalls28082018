@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Integrations } from '../modal/integrations';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
+
 import { IdName } from '../modal/id-name';
 import { VictorServiceService } from '../apiService/victor-service.service';
 import { FormGroup, FormControl , Validators } from '@angular/forms';
 
 import {throwError} from 'rxjs';
+import { Company } from '../modal/company';
 
 @Component({
   selector: 'app-createintegration',
@@ -16,14 +17,19 @@ import {throwError} from 'rxjs';
 export class CreateintegrationComponent implements OnInit {
 newIntegration: Integrations;
 createIntergrationForm;
+companies: Company[];
+lblComp = false;
+lblUser = false;
+lblPass = false;
+companyName;
 name="";
 show=false;
 companyId="";
 userName="";
 value="";
+loading=false;
 compId;
-  constructor(private router: Router, private srv: VictorServiceService,
-  private spinner:NgxSpinnerService) {
+  constructor(private router: Router, private srv: VictorServiceService,) {
     this.newIntegration = new Integrations();
     this.newIntegration.sourceType = new IdName();
   
@@ -34,16 +40,23 @@ compId;
       'userName':new FormControl('',Validators.compose([Validators.required])),
       'value':new FormControl('',Validators.compose([Validators.required])),
     });
+
+    this.srv.getAllCompanies().subscribe((data: Company[])=>{
+      // console.log(data);
+       this.companies = data;
+       console.log('CompanyList',this.companies);
+       this.loading=false;
+     }, error=>{
+      this.loading=false;
+      console.error('Error in API');
+      return throwError(error);
+     }
+    );
+
    }
 
   ngOnInit() {
-    /** spinner starts on init */
-    this.spinner.show();
- 
-    setTimeout(() => {
-        /** spinner ends after 5 seconds */
-        this.spinner.hide();
-    }, 1000);
+    
   }
  
      //newIntegration.value
@@ -58,17 +71,21 @@ compId;
         alert('Please Fill All Filed');
         return;
        }else{
-        this.srv.postIntegrations(this.newIntegration.companyId).subscribe((res:any)=>{
+         this.loading=true;
+         console.log('created integration:',this.newIntegration);
+        this.srv.postIntegrations(sessionStorage.getItem('integCmpId'), this.newIntegration).subscribe((res:any)=>{
           console.log('integ created: ', res);
+          this.loading=false;
         },error =>{
-          console.error('error in post api of create Integration');
+          this.loading=false;
           alert('Integration could not be added, Try again');
-          this.router.navigateByUrl('/superadmin/manageIntegrations');
+          this.router.navigateByUrl('/userhome/manageIntegrations');
+          console.error('error in api');
           return throwError(error);
         }
       );
         alert('Company Intergatred Successfully');
-        this.router.navigateByUrl('/superadmin/manageIntegrations');
+        this.router.navigateByUrl('/userhome/manageIntegrations');
        }
 
 
@@ -76,8 +93,23 @@ compId;
       
      }
      cancelIntegration(){
-      this.router.navigate(['/superadmin/manageIntegrations']);
+      this.router.navigate(['/userhome/manageIntegrations']);
     }
+
+    validateComp(){
+      this.newIntegration.companyId=1;
+      for(let i=0;i<=this.companies.length;i++){
+        if(this.companyName===this.companies[i].companyName){
+          this.newIntegration.companyId=this.companies[i].companyId;
+          return;
+        }
+      }
+         this.lblComp=true;
+     }
+
+    
+
+
     selectedProject(){
       //   <option>99 Acres</option>
      // <option>Magicbricks</option>

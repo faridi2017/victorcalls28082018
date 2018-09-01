@@ -5,9 +5,9 @@ import { Role } from '../modal/Role';
 import { Project } from '../modal/project';
 import { FormGroup, FormControl , Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 import {throwError} from 'rxjs';
+import { Company } from '../modal/company';
 
 @Component({
   selector: 'app-createuser',
@@ -16,6 +16,21 @@ import {throwError} from 'rxjs';
 })
 export class CreateuserComponent implements OnInit {
   createuserForm;
+  phoneB=false;
+  phoneB0=false;
+  cuser=false;
+  pass=false;
+  cpass=false;
+  comp=false;
+  cuemail=false;
+  fName=false;
+  lName=false;
+  companyName;
+  lblComp=false;
+  loading=false;
+
+
+  /*end-validation-part*/
   phoneNumber="";
   userName="";
   password="";
@@ -27,7 +42,7 @@ export class CreateuserComponent implements OnInit {
   roleName="";
   projectName="";
 user: Registration;
-companies=[0,1,2,3,4,5];
+companies:Company[];
 user1: Registration;
 role: Role;
 //roleiid;
@@ -38,8 +53,7 @@ cpn=false;
 roles: string[];
 projects: string[];
 
-  constructor(private usersrv: VictorServiceService, private router:Router,
-  private spinner:NgxSpinnerService) { 
+  constructor(private usersrv: VictorServiceService, private router:Router) { 
     this.user =new Registration();
     this.user.role = new Role();
     this.user.project = new Project();
@@ -61,6 +75,13 @@ projects: string[];
       'roleName':new FormControl('',Validators.compose([Validators.required])),
     }); 
 
+    this.loading=true;
+    this.usersrv.getAllCompanies().subscribe((data: Company[])=>{
+      // console.log(data);
+       this.companies = data;
+       console.log('CompanyList',this.companies);
+       this.loading=false;
+     });
 
  if(sessionStorage.getItem('roleId')=='1'){
    this.bRoleid = true;
@@ -82,13 +103,7 @@ projects: string[];
   }
 
   ngOnInit() {
-     /** spinner starts on init */
-     this.spinner.show();
- 
-     setTimeout(() => {
-         /** spinner ends after 5 seconds */
-         this.spinner.hide();
-     }, 1000);
+     
   }
   confirmPassword(event: any){
      // console.log(event.target.value);
@@ -106,7 +121,7 @@ projects: string[];
      // console.log(this.user.role.name);
     }
   selectedProject(){
-    console.log(this.user.projectName);
+    //console.log(this.user.projectName);
      
   }
   selectedCompanyId(){
@@ -158,6 +173,94 @@ projects: string[];
   cancleuser(){
     console.log('cancel User');
     this.router.navigate(['/superadmin/manageUser']);
+  }
+
+  validateUser(){
+    let rex = /^[^-_@\s][A-Za-z0-9.&@-_\s]{2,50}$/;
+    if(rex.test(this.user.userName)==true){
+      console.log('match');
+      this.cuser=false;
+   }else{
+     console.log('not match');
+     this.cuser = true;
+   }
+  
+   }
+
+   validateComp(){
+    this.project.companyId=1;
+    for(let i=0;i<=this.companies.length;i++){
+      if(this.companyName===this.companies[i].companyName){
+        this.project.companyId= this.companies[i].companyId;
+        return;
+      }
+   
+    }
+       this.lblComp=true;
+      
+   
+   }
+
+   validateEmail(){
+    console.log('validate email');
+    let rex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if(rex.test(this.user.email)==false){
+          this.cuemail = true;
+      }else{
+        this.cuemail = false;
+      }
+  }
+  
+  validatefName(){
+    console.log(this.user.firstName);
+    let rex = /^[a-zA-Z\s]{2,50}$/;
+    if (rex.test(this.user.firstName)==false) {
+      this.fName = true;
+    } else {
+      this.fName=false;
+    }
+  }
+  
+  validatelName(){
+    console.log(this.user.lastName);
+    let rex =  /^[a-zA-Z\s]{2,50}$/;
+    if(rex.test(this.user.lastName)==false){
+      this.lName=true;
+    }else{
+      this.lName=false;
+  
+    }
+  
+  }
+
+
+
+  validatePhone(){
+    ///^[A-Za-z0-9]+([&_ -]){50}$/
+    let rex = /^[0-9]{10}$/;
+    console.log(this.user.phoneNumber);
+    let len = this.user.phoneNumber.length;
+    let v=+this.user.phoneNumber;
+   
+    let i=Math.pow(10,len-1);
+    if(rex.test(this.user.phoneNumber)==true)
+       {
+              this.phoneB=false;
+              if(v/i<1){
+                this.phoneB0=true;
+                this.phoneB=false;
+                return;
+                //this.lblP=false;
+                }else{
+            
+                  this.phoneB0=false;
+                  return;
+                }
+        }else{
+                this.phoneB=true;
+                this.phoneB0=false;
+                return;
+              }
   }
   
 }

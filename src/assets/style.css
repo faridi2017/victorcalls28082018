@@ -23257,13 +23257,13 @@ div.tagsinput {
 /* Auth */
 .auth.auth-bg-1 {
   background: url("../assets/images/VC-BG (1).jpg");
-  background-size: cover;
   width:100%;
+  background-size: 100% 100%;
   
   
 }
 .logo-wapper{
-  margin-left: 100px;
+  margin-left: 105px;
   margin-top:-75px;
   position:absolute;
 }

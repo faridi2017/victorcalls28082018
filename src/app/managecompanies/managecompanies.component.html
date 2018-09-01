@@ -15,7 +15,7 @@
           <div class="row">
             <div class="col-12 table-responsive">
               <table id="mydatatable" class="table table-striped">
-                <thead style="background: #87ceeb">
+                <thead style="background: #87ceeb;box-shadow: 1px 1px 1px 1px #cccccc;">
                     <tr >
                         <th >CompanyId</th>
                         <th >Company Name</th>
@@ -35,14 +35,14 @@
                          <td >{{myList.contactPhone}}</td>
                          <td >{{myList.contactPersonName}}</td>
                          <td >
-                          <button (click)="updateCompany(myList.id)" type="button" 
+                          <button (click)="updateCompany(myList.companyId)" type="button" 
                           class="btn btn-primary block" >Update</button>
                           
                              <button  type="button" 
                            class="btn btn-danger block" (click)="delete(myList)" data-toggle="modal"
                             data-target="#myModal1" >
                              Delete</button>
-                             <button (click) = "integration(myList.companyId)" type="button" class="btn btn-success block"
+                             <button (click) = "integration(myList.companyId,myList.companyName)" type="button" class="btn btn-success block"
                             >Integration</button>
                          </td>
                      </tr>

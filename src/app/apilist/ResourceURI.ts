@@ -29,7 +29,8 @@ export  class ResourceURI {
     public static pProject = ResourceURI.host + '/api/Account/Project';
 
     // get all documents
-    public static gAllDocuments = ResourceURI.host + '/api/Account/Projects?userName=vedagya19';
+    ///api/Account/Projects?userName=vedagya19
+    public static gAllDocuments = ResourceURI.host + '/api/Account/Projects?userName=';
 
     // get documents of a project by projectId
     public static gDocumentByProjectID = ResourceURI.host + '/api/Account/Project/';
@@ -49,7 +50,7 @@ export  class ResourceURI {
     public static gUserProject = ResourceURI.host +'/api/Account/Projects?userName=';
 
     //update user
-    public static uUser = ResourceURI.host +'/api/account/update';
+    public static uUser = ResourceURI.host +'/api/account/User';
 
     //delete user
     public static dUser = ResourceURI.host +'/api/account/delete';
@@ -62,9 +63,12 @@ export  class ResourceURI {
 
     public static gCompany = ResourceURI.host + '/api/Account/Company';
 
-    //http://api.victorcalls.com/api/Account/Company
-    public static pCompany = ResourceURI.host + '/api/Account/Company';
-    //http://192.168.1.10:5000/api/victor/addCompany
+    //PUT: update company
+    //http://api.victorcalls.com/api/Account/Company/<companyId>
+    public static uCompany = ResourceURI.host + '/api/Account/Company/';
+  
+// add company: POST
+    public static pCompany = ResourceURI.host + '/api/Account/Company/';
 
     public static dCompany = ResourceURI.host + '/api/Account/Company/delete';
 
@@ -74,7 +78,7 @@ export  class ResourceURI {
 
     //getting particular integration 
     //http://api.victorcalls.com/api/Account/Company/1/Integrations/1
-    public static gIntegration = ResourceURI.host + '/api/Account/Company/1/Integrations/1';
+    //public static gIntegration = ResourceURI.host + '/api/Account/Company/1/Integrations/1';
 
    //http://api.victorcalls.com/api/Account/Company/1/Integrations
    public static pIntegration = ResourceURI.host + '/api/Account/Company/';

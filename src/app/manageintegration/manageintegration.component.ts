@@ -15,15 +15,19 @@ integrations: Integrations[];
 integ = false;
 loading=false;
 newIntegration: Integrations;
+companyName;
+companyId;
 sourceList=['99 acres', 'Facebook', 'Excelsheet', 'Google', 'Magic Bricks'];
 //sourceType: IdName;
   constructor(private srv: VictorServiceService, private router: Router,
   private spinner:NgxSpinnerService) { 
+this.companyName = sessionStorage.getItem('integCmpName');
+this.companyId = sessionStorage.getItem('integCmpId');
     this.integrations = [];
     this.newIntegration = new Integrations();
     this.newIntegration.sourceType = new IdName();
     this.loading=true;
-    this.srv.getIntegrations(sessionStorage.getItem('compId')).subscribe((res: Integrations[])=>{
+    this.srv.getIntegrations(sessionStorage.getItem('integCmpId')).subscribe((res: Integrations[])=>{
       this.integrations = res;
       this.loading=false;
       console.log(this.integrations);
@@ -37,18 +41,8 @@ sourceList=['99 acres', 'Facebook', 'Excelsheet', 'Google', 'Magic Bricks'];
   
   }
   showForm(){
-   this.router.navigate(['/superadmin/createIntegration']);
+   this.router.navigate(['/userhome/createIntegration']);
   }
-  createIntegration(){
-    //return;
-    //this.integ= true;
-    console.log('create inetrgation');
-    this.srv.postIntegrations(4).subscribe((res:any)=>{
-          console.log('integ created: ', res);
-    });
-  }
-  cancelIntegration(){
-   // return;
-    this.integ= false;
-  }
+  
+  
 }

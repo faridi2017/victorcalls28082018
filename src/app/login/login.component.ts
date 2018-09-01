@@ -4,11 +4,8 @@ import { VictorServiceService } from '../apiService/victor-service.service';
 import { FormGroup , FormControl , Validators } from '@angular/forms';
 import {Router} from '@angular/router';
 import { User } from '../modal/User';
-import {HttpResponse } from '@angular/common/http';
-import { Text } from '@angular/compiler/src/i18n/i18n_ast';
-import { tokenKey } from '@angular/core/src/view';
-import { TestObject } from 'protractor/built/driverProviders';
-import {Response } from '@angular/http';
+
+import {throwError} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -79,10 +76,14 @@ public userData: User;
                   sessionStorage.setItem('vctoken', res.access_token);
                   console.log('accesss token',res.access_token);
                   //console.log('token',res.access_token);
-                      this.router.navigate(['/superadmin']);
+                      this.router.navigate(['/userhome']);
                     } //else{ alert('wrong user id or password');}
                  
-                   });   
+                   },error=>{
+                   // this.loading = false;
+                    console.error('Error in calling Login Api! Login Again');
+                   return throwError(error);
+                  });   
                  //  console.log('loginurl response', this.loginResult.HttpResponse);
                   }
                    
