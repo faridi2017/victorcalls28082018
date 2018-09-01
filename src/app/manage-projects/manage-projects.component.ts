@@ -41,6 +41,7 @@ bExcel = false;
   filestring: string;
   fi = false;
   fim;
+  length;
   project: Project;
   document: Document;
  
@@ -53,6 +54,7 @@ this.document = new Document();
   this.loading=true;
   this.prjService.getAllProjects(sessionStorage.getItem('userName')).subscribe((data: Project[])=>{
   this.projects = data;
+  this.length=this.projects.length;
   this.loading=false;
   this.bExcel =true;
   

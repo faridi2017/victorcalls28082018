@@ -35,15 +35,15 @@ export class CreateDocumentComponent implements OnInit {
   }
 
   cancel(){
-    this.router.navigate(['/superadmin/document']);
+    this.router.navigate(['/userhome/document']);
   }
   
- uploadExcelFiles(){
+ uploadFiles(){
   const frmData = new FormData();
   for (var i = 0; i < this.myFiles.length; i++) { 
     frmData.append("File", this.myFiles[i]);
-    frmData.append("brochure","xyz");
-    frmData.append("link","xyz.com/doc" );
+    frmData.append("brochure","dummy");
+    frmData.append("link","dummy.com/doc" );
   }
 // this.srv.uploadsDocument(frmData,sessionStorage.getItem('prjID')).subscribe(res=>{
  // console.log('form data',frmData);
@@ -52,12 +52,12 @@ export class CreateDocumentComponent implements OnInit {
     console.log('Document Added',res);
     this.loading=false;
     alert('file uploaded successfully');
-    this.router.navigate(['/superadmin/document']);
+    this.router.navigate(['/userhome/document']);
   },error =>{
     this.loading=false;
     console.error('error in post api of create document');
     alert('document could not be added, Try again');
-    this.router.navigateByUrl('/superadmin/manageCompanies');
+    this.router.navigateByUrl('/userhome/manageCompanies');
     return throwError(error);
   }
   

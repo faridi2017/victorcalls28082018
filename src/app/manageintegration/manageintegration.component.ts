@@ -30,7 +30,7 @@ this.companyId = sessionStorage.getItem('integCmpId');
     this.srv.getIntegrations(sessionStorage.getItem('integCmpId')).subscribe((res: Integrations[])=>{
       this.integrations = res;
       this.loading=false;
-      console.log(this.integrations);
+      console.log('integration of a company',this.integrations);
      // console.log(this,this.integrations);
     
     });

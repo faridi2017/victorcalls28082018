@@ -72,6 +72,7 @@ compId;
         return;
        }else{
          this.loading=true;
+         this.newIntegration.sourceType.id=0;
          console.log('created integration:',this.newIntegration);
         this.srv.postIntegrations(sessionStorage.getItem('integCmpId'), this.newIntegration).subscribe((res:any)=>{
           console.log('integ created: ', res);

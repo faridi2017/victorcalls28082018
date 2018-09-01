@@ -4,9 +4,11 @@
       <div class="card">
          
        <div class="card-body">
-          <h4 class="card-title"> <label><h5 *ngIf="updatedUser">UPDATE USER with id={{updatedUser.id}}&nbsp;
-              and Name:{{updatedUser.firstName}}&nbsp;{{updatedUser.lastName}}</h5>
-             </label> </h4>
+          <h5 class="card-title">UPDATE USER</h5>
+            
+            <h6 *ngIf="updatedUser" style="color: tomato">User id:&nbsp;{{updatedUser.id}},&nbsp;
+              User name:&nbsp;{{updatedUser.firstName}}&nbsp;{{updatedUser.lastName}}</h6>
+            
           <div class="row">
               <div class="col-md-6" *ngIf="updatedUser">
                   <form class="form-horizontal" (ngSubmit)="updateUser()">

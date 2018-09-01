@@ -15,6 +15,7 @@ users: Registration[];
 userD: Registration;
 sUser : Registration;
 loading=false;
+length;
 //role: Role;
 display;
   constructor(private userService:VictorServiceService, private router: Router,
@@ -26,7 +27,7 @@ display;
     this.userService.getAllUser(sessionStorage.getItem('userName')).subscribe((data: Registration[])=>{
       this.users = data;
       this.loading=false;
-      
+      this.length= this.users.length;
     }, error=>{
       this.loading=false;
       console.error('Error in get all user api, try again later');

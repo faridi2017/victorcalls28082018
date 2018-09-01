@@ -29,7 +29,7 @@ this.documents = [];
    }
 
   ngOnInit() {
-   
+   console.log('document of project',sessionStorage.getItem('prjID'));
     this.docService.getDocumentsOfProject(sessionStorage.getItem('prjID')).subscribe((data: Document[])=>{
       this.documents = data;
       this.numberOfRecord = this.documents.length;
@@ -69,6 +69,6 @@ this.documents = [];
     console.log('excel file uploaded',res);
     alert('file uploaded successfully');
   });
-  this.router.navigate(['/superadmin/home']);
+  this.router.navigate(['/userhome/home']);
  }
 }

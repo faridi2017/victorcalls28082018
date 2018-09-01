@@ -14,6 +14,7 @@ companies: Company[];
 dCompany: Company;
 sCompany : Company;
 loading=false;
+length;
   constructor(private cmpsrv: VictorServiceService, private router: Router) {
     this.companies = [];
     this.sCompany = new Company();
@@ -22,6 +23,7 @@ loading=false;
      // console.log(data);
       this.companies = data;
       this.loading=false;
+      this.length=this.companies.length;
     },
     error => {
               this.loading = false;

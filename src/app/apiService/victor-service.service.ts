@@ -66,8 +66,8 @@ export class VictorServiceService {
    } // end of login
  // get raw leads, ie all leads
  public uploadsDocument(formdata: FormData,prjID):Observable<any> {
-      
-  return this.http.post(ResourceURI.pDocumentOfProject+prjID+'/Document', formdata);
+      let prjIDn = +prjID;
+  return this.http.post(ResourceURI.pDocumentOfProject+prjIDn+'/Document', formdata);
 } // end of login
  public getRawLeads(userName) {
             return this.http.get(ResourceURI.gRawLeads + userName, httpOptions);
