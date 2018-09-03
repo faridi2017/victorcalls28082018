@@ -80,6 +80,8 @@ public userData: User;
                     } //else{ alert('wrong user id or password');}
                  
                    },error=>{
+                   //  alert('Wrong user name or password');
+                     //this.router.navigate(['']);
                    // this.loading = false;
                     console.error('Error in calling Login Api! Login Again');
                    return throwError(error);

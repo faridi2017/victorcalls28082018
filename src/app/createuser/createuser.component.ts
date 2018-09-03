@@ -41,6 +41,7 @@ export class CreateuserComponent implements OnInit {
   lastName="";
   roleName="";
   projectName="";
+  allRoles: Role[];
 user: Registration;
 companies:Company[];
 user1: Registration;
@@ -55,6 +56,7 @@ projects: string[];
 
   constructor(private usersrv: VictorServiceService, private router:Router) { 
     this.user =new Registration();
+    this.allRoles=[];
     this.user.role = new Role();
     this.user.project = new Project();
     this.user1 = new Registration();
@@ -88,8 +90,9 @@ projects: string[];
  }
     this.projects =[];
    
-    this.usersrv.getUserRoles().subscribe((data: any)=>{
-    //  console.log('role',data);
+    this.usersrv.getUserRoles().subscribe((data: Role[])=>{
+   this.allRoles=data;
+      console.log('role',this.allRoles);
       for(let user of data){
           this.roles.push(user.name);
       }
@@ -119,6 +122,14 @@ projects: string[];
   }
   selectedRole(){
      // console.log(this.user.role.name);
+    for(let i =0;i<this.allRoles.length;i++){
+                  if(this.user.role.name===this.allRoles[i].name)
+                      {
+                        this.user.role.roleID= this.allRoles[i].roleID;
+                        return;
+
+                      }
+       }
     }
   selectedProject(){
     //console.log(this.user.projectName);
@@ -152,18 +163,19 @@ projects: string[];
        alert('Please Fill All Field');
        return;
     }else{
+      console.log('new user:', this.user);
       this.usersrv.postAddUser(this.user).subscribe((res: any)=>{
         console.log('submitted', res);
         alert('User Created Successfully');
+        this.router.navigateByUrl('/userhome/manageUser');
        },error =>{
-        console.error('error in post api of create Integration');
-        alert('Integration could not be added, Try again');
-        this.router.navigateByUrl('/superadmin/manageIntegrations');
+        console.error('error in post api of create user');
+        alert('user could not be added, Try again');
+        this.router.navigateByUrl('/userhome/manageUser');
         return throwError(error);
        }
       );
-     
-     this.router.navigateByUrl('/superadmin/manageUser');
+       
     }
     
   //console.log(this.user.phoneNumber);
@@ -172,7 +184,7 @@ projects: string[];
   }
   cancleuser(){
     console.log('cancel User');
-    this.router.navigate(['/superadmin/manageUser']);
+    this.router.navigate(['/userhome/manageUser']);
   }
 
   validateUser(){
@@ -188,10 +200,10 @@ projects: string[];
    }
 
    validateComp(){
-    this.project.companyId=1;
+   
     for(let i=0;i<=this.companies.length;i++){
       if(this.companyName===this.companies[i].companyName){
-        this.project.companyId= this.companies[i].companyId;
+        this.user.companyId= this.companies[i].companyId;
         return;
       }
    

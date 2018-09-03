@@ -21,10 +21,12 @@ export  class ResourceURI {
     public static gLeadsByStatusId =ResourceURI.host + '/api/Leads/Company?username=';
 
     // get raw leads 10 at a time with page number
-    public static gTenRawLeadsPno =ResourceURI.host + 
-                    '/api/leads/Company/RawLeadsWithPaging?userName=vedagya19&pagesize=10&pagenumber=';
-    
-    
+    public static gTenRawLeadsPno =ResourceURI.host + '/api/leads/Company/RawLeadsWithPaging?userName=';
+                   
+    // '/api/leads/Company/RawLeadsWithPaging?userName=vedagya19&pagesize=10&pagenumber=';
+    // get raw leads 10 at a time with page number
+    public static gTenRawLeadsPnoN =ResourceURI.host + 
+                    '/api/leads/Company/RawLeadsWithPaging?userName=';
     // post a project
     public static pProject = ResourceURI.host + '/api/Account/Project';
 

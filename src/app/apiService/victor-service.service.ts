@@ -74,12 +74,18 @@ export class VictorServiceService {
        }// end of getUrlLeads
 
 
-public getTenRawLeads(pageNumber) {
+public getTenRawLeadsNew(pageNumber) {
         // console.log('at raw ten leads service');
-              pageNumber = String(pageNumber);
-              return this.http.get(ResourceURI.gTenRawLeadsPno+pageNumber, httpOptions);
+pageNumber = String(pageNumber);
+return this.http.get(ResourceURI.gTenRawLeadsPno+sessionStorage.getItem('userName')+
+                    '&pagesize=10&pagenumber='+pageNumber,httpOptions);
          }// end of geTentUrlLeads 
-
+public getTenRawLeads(pageNumber)
+     {
+      pageNumber = String(pageNumber);
+       return this.http.get(ResourceURI.gTenRawLeadsPno+sessionStorage.getItem('userName')+
+                               '&pagesize=10&pagenumber='+pageNumber,httpOptions);
+           }// e
 
   // get count of all type of leads
 public getDetails(userName) {
