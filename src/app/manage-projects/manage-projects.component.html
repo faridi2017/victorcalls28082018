@@ -11,6 +11,17 @@
               <h5 class="card-title" style="color:#131e42">Manage Projects:&nbsp;{{length}}</h5></div>
             <div class="col-3"> <button class="btn btn-primary" style="margin-left: 10px;" (click)="createProject()">
                 Create project</button></div>
+           <div class="col-6">
+              <label>Select Company</label>&nbsp;
+              <select *ngIf="companies"  [(ngModel)]="companyName" 
+                 required="" placeholder="select Company" 
+                (change)="getProjectsofCompany()">
+                <option>------</option>
+                <option *ngFor="let company of companies">{{company.companyName}}</option>
+                
+              </select> 
+           
+            </div>
         </div>
           <div class="row">
             <div class="col-12 table-responsive">
@@ -45,9 +56,9 @@
             </div>
             <div class="row">
               <div class="col-md-6 col-sm-10" style="margin-bottom: 20px;">
-                  <button (click)="createExcel()" type="button" class="btn btn-success block"
+                  <!--button (click)="createExcel()" type="button" class="btn btn-success block"
                    *ngIf="bExcel" style="background:#87ceeb; border: 1px solid #87ceeb;font-weight: bold;">
-                    Download Excel File</button>
+                    Download Excel File</button-->
                   </div>
               </div>
           </div>

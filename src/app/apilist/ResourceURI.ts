@@ -91,6 +91,10 @@ export  class ResourceURI {
    // get projects list
    public static gAllProjects = ResourceURI.host +'/api/account/projects?userName=';
 
+   //get project by companyId
+   public static gProjectsOfCompany = ResourceURI.host+ '/api/Account/Projects?companyId=';
+
+
    //post seleted leads
    public static pLeads = ResourceURI.host +'/api/Leads/';
 

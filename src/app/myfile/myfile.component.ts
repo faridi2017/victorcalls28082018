@@ -5,6 +5,7 @@ import { Leads } from '../modal/Leads';
 import { Router } from '@angular/router';
 import { ResourceURI } from '../apilist/ResourceURI';
 import { VictorServiceService } from '../apiService/victor-service.service';
+import {throwError} from 'rxjs';
 //import { HttpErrorResponse } from '@angular/common/https/src/response';
 const HttpUploadOptions = {
   headers: new HttpHeaders({ "Content-Type": "multipart/form-data" })
@@ -53,7 +54,15 @@ export class MyfileComponent implements OnInit {
   this.srv.uploadsLeadsExcelFile(frmData).subscribe(res=>{
     console.log('excel file uploaded',res);
     alert('file uploaded successfully');
-  });
+    this.router.navigate(['/userhome/home']);
+  },error=>{
+    //  alert('Wrong user name or password');
+      //this.router.navigate(['']);
+    // this.loading = false;
+    alert('file could not uploadeded');
+     console.error('Error in Upload raw leads');
+    return throwError(error);
+   });
   this.router.navigate(['/userhome/home']);
  }
 

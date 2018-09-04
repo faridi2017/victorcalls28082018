@@ -113,6 +113,9 @@ public getAssigneeList() {
         public getAllProjectsA(id){
           return this.http.get(ResourceURI.gAllProjects + id, httpOptions);
         }  
+public getProjectsOfCompany(companyId){
+          return this.http.get(ResourceURI.gProjectsOfCompany+companyId, httpOptions);
+        }
 
 public getAllDocuments(){
           return this.http.get(ResourceURI.gAllDocuments, httpOptions);

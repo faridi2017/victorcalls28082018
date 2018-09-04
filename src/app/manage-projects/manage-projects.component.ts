@@ -16,6 +16,7 @@ import {throwError} from 'rxjs';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { stringify } from '@angular/core/src/util';
+import { Company } from '../modal/company';
 declare var ol: any;
 const httpOptions1 = {
   headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
@@ -30,6 +31,8 @@ export class ManageProjectsComponent implements OnInit {
   loading=false;
   message:string;
   showPosition;
+  companyName;
+  companies: Company[];
 address: any;
 geoAddress: any;
   form1 = false;
@@ -37,6 +40,7 @@ geoAddress: any;
 bExcel = false;
   form2 = false;
   projects: Project[];
+  projectsOfCompany: Project[];
   files: FileList;
   filestring: string;
   fi = false;
@@ -64,9 +68,23 @@ this.document = new Document();
    return throwError(error);
 }
 );
+
+this.prjService.getAllCompanies().subscribe((data: Company[])=>{
+  // console.log(data);
+   this.companies = data;
+  // this.SuperAdminB = true;
+   console.log('CompanyList',this.companies);
+  // this.project.companyId= +sessionStorage.getItem('CompanyId');
+   //this.loading=false;
+ },error=>{
+   //this.loading = false;
+   console.error('Error in get Api, Companies!');
+  return throwError(error);
+ });
  }
 
   ngOnInit() {
+    
    
   }
   getDocuments(projectID){
@@ -89,7 +107,29 @@ this.document = new Document();
     this.router.navigate(['userhome/location']);
    
   }
-  
+  getProjectsofCompany(){
+    console.log('project list');
+    for(let index=0;index<this.companies.length;index++){
+          if(this.companyName===this.companies[index].companyName){
+            console.log(this.companyName);
+            this.prjService.getProjectsOfCompany(this.companies[index].companyId).subscribe((data: Project[])=>{
+              this.projects = data;
+              this.length=this.projects.length;
+              this.projectsOfCompany=data;
+              console.log('projectlist',this.projectsOfCompany);
+             
+            }, error=>{
+             //  this.loading=false;
+               console.log('Error in get projects of company api, try again');
+               return throwError(error);
+            }
+            );  
+            break; 
+          }
+    }
+   
+   
+  }
  
   createExcel(){
     this.prjService.exportAsExcelFile(this.projects, 'projects');

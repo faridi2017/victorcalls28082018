@@ -221,10 +221,10 @@ this.users = [];
               this.rawLeadService.exportAsExcelFile(this.myLead1, 'rawLead');
            }//end of create excel
         
-          uploadFiles () {
-           this.router.navigate(['/admin/uploadFiles']);
+         // uploadFiles () {
+        //   this.router.navigate(['/admin/uploadFiles']);
           
-          }// end of uploadFiles
+        //  }// end of uploadFiles
 
           openModelWindow(){
             for(let j = 0; j<this.indicesOfSelectedLeads.length; j++){
@@ -292,6 +292,7 @@ this.users = [];
             onItemSelectA(item: any) {
               // console.log(item);
              //  this.selectedUserListA = item;
+             console.log('selected assignee',this.selectedUserListA);
                if(this.selectedUserListA.length!=0){
                    this.isUserSelect = true;
                }else{this.isUserSelect = false;}
@@ -305,6 +306,7 @@ this.users = [];
                         {  
                           let index1 = this.dropdownListAU.indexOf(this.selectedUserListA[j]);
                                //   if(this.selectedUserListA[j]==this.selectedLead[i].items[k].userName){
+                                 console.log('selected user',this.multiSelectDropdownSelectedIds[index1]);
                          this.selectedLead[i].items[j].assignedTo =this.multiSelectDropdownSelectedIds[index1];
                          this.selectedLead[i].items[j].token =this.multiSelectDropdownSelectedTokens[index1];
                          console.log('s user name:',this.selectedUserListA[j]);
@@ -334,18 +336,19 @@ this.users = [];
                    this.rawLeadService.postLeads(this.selectedLead[i],this.selectedLead[i].leadId).subscribe((res: HttpResponse<Text>)=> {
                 //console.log(res);
                // this.selectedLead[1].assignedUsers
+               console.log('assign',res);
                this.loading=false;
                alert('leads assigned successfully');
                });  
               }
             
              //
-             this.router.navigateByUrl('superadmin/rawLead');
+             this.router.navigateByUrl('userhome/rawLead');
             }//end of assignLeads
 
 
           cancelAssignment(){
-            this.router.navigateByUrl('superadmin/rawLead');
+            this.router.navigateByUrl('userhome/rawLead');
           }// end of cancel
           getDetails(myList:MyLead){
            this.leadDetails=myList;
