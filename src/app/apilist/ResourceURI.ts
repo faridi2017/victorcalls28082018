@@ -13,8 +13,11 @@ export  class ResourceURI {
     // count of different leads
     public static gLeadCount = ResourceURI.host + '/api/Leads/leadStatusCounts?username=';
 
-    // get raw leads
+    // get raw leads by userName
     public static gRawLeads =ResourceURI.host + '/api/Leads/Company/RawLeads?userName=';
+     
+    // get raw leads by companyId
+     public static gRawLeadsCmp =ResourceURI.host + '/api/Leads/Company/RawLeads?companyId=';
 
     //get leads by statusId
     //'/api/Leads/Company?username=vedagya19&statusid='
@@ -57,8 +60,11 @@ export  class ResourceURI {
     //delete user
     public static dUser = ResourceURI.host +'/api/account/delete';
     
-    // get user
+    // get user by login userName
     public static gUser = ResourceURI.host + '/api/Account/Users?userName=';
+
+    // get user by companyId
+    public static gUserCmp = ResourceURI.host + '/api/Account/Users?companyId=';
 
     //get companies http://api.victorcalls.com/api/Account/Companies
     public static gCompanies = ResourceURI.host + '/api/Account/Companies';

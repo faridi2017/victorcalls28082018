@@ -3,6 +3,7 @@ import { Registration } from '../modal/Registration';
 import { VictorServiceService } from '../apiService/victor-service.service';
 import { Router } from '@angular/router';
   import {throwError} from 'rxjs';
+import { Role } from '../modal/Role';
 @Component({
   selector: 'app-updateuser',
   templateUrl: './updateuser.component.html',
@@ -13,6 +14,7 @@ export class UpdateuserComponent implements OnInit {
   users: Registration[];
   cpy=false;
   updateIndex;
+  allRoles: Role[];
   //companyIds =[1,2,3,4,5];
   updatedUser: Registration;
   cpn=false;
@@ -20,6 +22,7 @@ export class UpdateuserComponent implements OnInit {
   projects: string[];
     constructor(private usersrv: VictorServiceService, private router: Router) { 
       this.user =new Registration();
+      this.user.role = new Role();
       this.users = [];
       this.roles = [];
       this.projects =[];
@@ -33,12 +36,14 @@ export class UpdateuserComponent implements OnInit {
           }
      }
       });
-      this.usersrv.getUserRoles().subscribe((data: any)=>{
-      //  console.log('role',data);
-        for(let user of data){
-            this.roles.push(user.name);
-        }
-      });
+      this.usersrv.getUserRoles().subscribe((data: Role[])=>{
+        this.allRoles=data;
+           console.log('role',this.allRoles);
+           for(let user of data){
+               this.roles.push(user.name);
+           }
+         });
+     
       this.usersrv.getUserProject(sessionStorage.getItem('userName')).subscribe((data:any)=>{
         for(let user of data){
           this.projects.push(user.projectName);
@@ -64,6 +69,15 @@ export class UpdateuserComponent implements OnInit {
     }
     selectedRole(){
       //  console.log(this.user.roleName);
+      for(let i =0;i<this.allRoles.length;i++){
+        if(this.updatedUser.role.name===this.allRoles[i].name)
+            {
+              this.updatedUser.role.roleID= this.allRoles[i].roleID;
+              this.updatedUser.role.name=this.allRoles[i].name;
+              return;
+
+            }
+}
       }
     selectedProject(){
     //  console.log(this.user.projectName);

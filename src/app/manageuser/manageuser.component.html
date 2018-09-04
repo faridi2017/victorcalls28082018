@@ -11,7 +11,19 @@
           <h5 class="card-title" style="color:#131e42">Manage Users:&nbsp; {{length}}</h5></div>
           <div class="col-md-1">
           <button (click)="createUser()" type="button" class="btn btn-success block">
-              Create User</button></div>
+            <i class="fa fa-plus" style="color:#dc6f33; font-size: 14px"></i>Create User</button>
+          </div>
+          <div class="col-7" *ngIf="companies"  style="margin-left: 50px">
+            <label>Select Company</label>&nbsp;
+            <select [(ngModel)]="companyName" 
+               required="" placeholder="select Company" 
+              (change)="getUsersOfCompany()">
+              <option>------</option>
+              <option *ngFor="let company of companies">{{company.companyName}}</option>
+              
+            </select> 
+         
+          </div>
             </div>
           <div class="row">
             <div class="col-12 table-responsive">
@@ -39,11 +51,12 @@
                          <td >
                           <button (click)="updateUser(myList.id)" type="button" 
                           class="btn btn-primary block" >
-                            Update</button>
+                          <i class="fa fa-pencil-square-o" 
+                          style="color:#dc6f33; font-size: 12px"></i>  Update</button>
                             
                           <button (click)="deleteUser(myList)" type="button" class="btn btn-danger block"
                            data-toggle="modal" data-target="#myModal" >
-                           Delete</button>
+                           <i class="fa fa-trash" style="color:#dc6f33; font-size: 12px"></i>  Delete</button>
                            
                          </td>
                      

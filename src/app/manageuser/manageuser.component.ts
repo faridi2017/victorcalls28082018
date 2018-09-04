@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Role } from '../modal/Role';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { throwError } from 'rxjs';
+import { Company } from '../modal/company';
 @Component({
   selector: 'app-manageuser',
   templateUrl: './manageuser.component.html',
@@ -15,6 +16,8 @@ users: Registration[];
 userD: Registration;
 sUser : Registration;
 loading=false;
+companyName;
+companies: Company[];
 length;
 //role: Role;
 display;
@@ -24,6 +27,19 @@ display;
     this.sUser = new Registration();
     this.sUser.role = new Role();
     this.loading=true;
+    this.userService.getAllCompanies().subscribe((data: Company[])=>{
+      // console.log(data);
+     // this.loading=false;
+       this.companies = data;
+      // this.SuperAdminB = true;
+       console.log('CompanyList',this.companies);
+      // this.project.companyId= +sessionStorage.getItem('CompanyId');
+       //this.loading=false;
+     },error=>{
+       //this.loading = false;
+       console.error('Error in get Api, Companies!');
+      return throwError(error);
+     });
     this.userService.getAllUser(sessionStorage.getItem('userName')).subscribe((data: Registration[])=>{
       this.users = data;
       this.loading=false;
@@ -77,5 +93,24 @@ confirmDelete(){
 showUser(user:Registration){
   console.log('Show User');
   this.sUser = user;
+}
+getUsersOfCompany(){
+  this.loading=true;
+  for(let index=0;index<this.companies.length;index++){
+    if(this.companyName===this.companies[index].companyName){
+      console.log(this.companyName);
+      this.userService.getAllUser(sessionStorage.getItem('userName')).subscribe((data: Registration[])=>{
+        this.users = data;
+        this.loading=false;
+        this.length= this.users.length;
+      }, error=>{
+        this.loading=false;
+        console.error('Error in get all user api, try again later');
+        return throwError(error);
+      }
+    );
+      break; 
+    }
+}
 }
 }

@@ -69,10 +69,21 @@ export class VictorServiceService {
       let prjIDn = +prjID;
   return this.http.post(ResourceURI.pDocumentOfProject+prjIDn+'/Document', formdata);
 } // end of login
+
+//get rawleads by login username
  public getRawLeads(userName) {
             return this.http.get(ResourceURI.gRawLeads + userName, httpOptions);
        }// end of getUrlLeads
 
+//get Raw leads by Company Id
+  public getRawLeadsCmp(companyId) {
+        return this.http.get(ResourceURI.gRawLeadsCmp + companyId, httpOptions);
+   }// end of getUrlLeads
+
+//get all user by companyId
+getAllUserCmp(companyId){
+  return this.http.get(ResourceURI.gUserCmp+companyId, httpOptions);
+}
 
 public getTenRawLeadsNew(pageNumber) {
         // console.log('at raw ten leads service');

@@ -22,6 +22,7 @@ export class RawleadsComponent implements OnInit {
 blist;
 loading = false;
 remarks;
+numberOfRecords;
 x:string[] = [];
 expand=[true,true,true,true,true,true,true,true,true,true];
 collapse=[false,false,false,false,false,false,false,false,false,false];
@@ -90,6 +91,7 @@ this.users = [];
  //this.myLead1 = [];
       this.rawLeadService.getRawLeads(sessionStorage.getItem('userName')).subscribe((data: MyLead[]) => {
         this.indexRawLeads = data.length;
+        this.numberOfRecords=data.length;
         this.myLead1 = data;
         console.log(this.myLead1[0]);
         this.bExcel = true;
@@ -307,6 +309,7 @@ this.users = [];
                           let index1 = this.dropdownListAU.indexOf(this.selectedUserListA[j]);
                                //   if(this.selectedUserListA[j]==this.selectedLead[i].items[k].userName){
                                  console.log('selected user',this.multiSelectDropdownSelectedIds[index1]);
+                                this.selectedLead[i].items[j] = new MyItems(); 
                          this.selectedLead[i].items[j].assignedTo =this.multiSelectDropdownSelectedIds[index1];
                          this.selectedLead[i].items[j].token =this.multiSelectDropdownSelectedTokens[index1];
                          console.log('s user name:',this.selectedUserListA[j]);

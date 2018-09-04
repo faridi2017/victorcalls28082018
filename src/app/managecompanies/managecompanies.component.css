@@ -22,11 +22,11 @@
     color: #000000;
 }
  .btn-primary{
-    width:33.33%;
+    width:32%;
     border-radius: 25px;
     background: #87ceeb;
     color: #131e42;
-    font-size: 12px;
+    font-size: 11px;
     box-shadow: 2px 2px 2px 2px #cccccc;
     -webkit-box-shadow: 2px 2px 2px 2px #cccccc;
     -moz-box-shadow: 2px 2px 2px 2px #cccccc;
@@ -38,9 +38,9 @@
     color: #000000;
  }
  .btn-danger{
-    width:33.33%;
+    width:32%;
     border-radius: 25px;
-    font-size: 12px;
+    font-size: 11px;
     background: #87ceeb;
     color: #131e42;
     box-shadow: 2px 2px 2px 2px #cccccc;
@@ -54,11 +54,11 @@
     color: #000000;
  }
  .btn-success{
-    width:33.33%;
+    width:32%;
     border-radius: 25px;
     background: #87ceeb;
     color: #131e42;
-    font-size: 12px;
+    font-size: 11px;
     box-shadow: 2px 2px 2px 2px #cccccc;
     -webkit-box-shadow: 2px 2px 2px 2px #cccccc;
     -moz-box-shadow: 2px 2px 2px 2px #cccccc;

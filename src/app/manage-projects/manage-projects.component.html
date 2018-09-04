@@ -10,7 +10,7 @@
             <div class="col-3">
               <h5 class="card-title" style="color:#131e42">Manage Projects:&nbsp;{{length}}</h5></div>
             <div class="col-3"> <button class="btn btn-primary" style="margin-left: 10px;" (click)="createProject()">
-                Create project</button></div>
+              <i class="fa fa-plus" style="color:#dc6f33; font-size: 14px"></i>  Create project</button></div>
            <div class="col-6">
               <label>Select Company</label>&nbsp;
               <select *ngIf="companies"  [(ngModel)]="companyName" 
@@ -47,6 +47,7 @@
                          <td >
                           <button (click)="getDocuments(myList.projectId)" type="button" 
                           class="btn btn-success block" > 
+                          <i class="fa fa-pencil-square-o" style="color:#dc6f33; font-size: 14px"></i> 
                           Get Documents</button>
                          </td>
                      

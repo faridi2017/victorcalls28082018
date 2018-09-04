@@ -164,11 +164,15 @@ projects: string[];
        return;
     }else{
       console.log('new user:', this.user);
+      //this.loading= true;
       this.usersrv.postAddUser(this.user).subscribe((res: any)=>{
+        this.loading= true;
         console.log('submitted', res);
+        this.loading=false;
         alert('User Created Successfully');
         this.router.navigateByUrl('/userhome/manageUser');
        },error =>{
+         this.loading=false;
         console.error('error in post api of create user');
         alert('user could not be added, Try again');
         this.router.navigateByUrl('/userhome/manageUser');
