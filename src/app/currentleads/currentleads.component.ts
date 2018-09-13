@@ -5,6 +5,7 @@ import {throwError} from 'rxjs';
 import { MyItems } from '../modal/MyItems';
 import {HttpResponse } from '@angular/common/http';
 import { RouterModule, Routes, NavigationEnd, Router } from '@angular/router';
+import { Company } from '../modal/company';
 
 @Component({
   selector: 'app-currentleads',
@@ -15,14 +16,16 @@ export class CurrentleadsComponent implements OnInit {
 
   remarks;
   x:string[] = [];
+  statusId='1'
   expand=[true,true,true,true,true,true,true,true,true,true];
   collapse=[false,false,false,false,false,false,false,false,false,false];
   expandN=[true,true,true,true,true,true,true,true,true,true];
   collapseN=[false,false,false,false,false,false,false,false,false,false];
   name;
   xN:string[]=[];
-
-
+selectedCompanyName;
+selectedCompanyId;
+  companies: Company[];
 blist;
 loading = false;
  public myLead: MyLead[];
@@ -39,6 +42,7 @@ loading = false;
    indexL;
    indexLI;
    leadItems: MyItems[];
+   length;
  
    filter = false;
    isRowSelect= false;
@@ -56,9 +60,44 @@ loading = false;
      //this.myLead = new MyLead[10];
      this.newlist = [];
      this.myLead=[];
+     this.selectedCompanyId=sessionStorage.getItem('CompanyId');
     // this.myLead= new MyItems;
+    if(sessionStorage.getItem('role')==='SuperAdmin'){
+                this.loading=true;
+              this.currentLeadService.getAllCompanies().subscribe((data: Company[])=>{
+                this.companies = data;
+                this.loading=false;
+                console.log('CompanyList',this.companies,this.companies.length);
+                
+                this.selectedCompanyName=this.companies[0].companyName;
+
+              },error=>{
+                this.loading=false;
+                console.error('Error in get Api, Companies!');
+                return throwError(error);
+            });
+          }//end of if statement
+            // calling current leads api            
+            this.loading=true;
+        this.currentLeadService.getCmpLeadsByStatus(this.selectedCompanyId,this.statusId).subscribe((data:MyLead[])=>{
+          this.myLead = data;
+          this.length=this.myLead.length;
+          console.log('current leads',this.myLead);
+          this.loading=false;
+          for(let i =0;i<this.myLead.length;i++){
+            this.xN[i] = this.myLead[i].name.substring(0,20);
+          }//cmpctLabel.substring
+        },error=>{
+          console.error('Error in calling Current Leads Api!');
+          return throwError(error);
+        });
     
-    
+
+
+
+
+ //
+ 
      this.selectedLead = [];
      this.router.routeReuseStrategy.shouldReuseRoute = function(){
        return false;
@@ -75,14 +114,7 @@ loading = false;
     } // end of constructor
  
    ngOnInit() {
- //reload page each time
- 
- 
- 
- //reload page on each click
- 
- 
- 
+  
      this.dropdownSettings = {
        singleSelection: false,
        idField: 'item_id',
@@ -99,40 +131,12 @@ loading = false;
        itemsShowLimit: 3,
        allowSearchFilter: true
      };
- 
-    /* this.rawLeadService.getLeadsByStausId(statusId)
- 
- 
-    */
- // calling get api for raw leads
- this.loading = true;
-     this.currentLeadService.getUserLeads('1',sessionStorage.getItem('userName')).subscribe((data: MyLead[]) => {
-                            this.indexL = data.length;
-                            this.myLead = data;
-                            this.loading=false;
-
-                            
-                            for(let i =0;i<this.myLead.length;i++){
-                              this.xN[i] = this.myLead[i].name.substring(0,20);
-                             }//cmpctLabel.substring
-                            console.log('CUrrent lead',this.myLead);
-
-                            
-
-                            return true;
-                                 },
-                                 error => {
-                                   this.loading=false;
-                                   console.error("Error in Api!");
-                                   return throwError(error);  // Angular 6/RxJS 6
-                                 }
-                               ); 
-
-
-
-                               
+                              
                                
    }  // end of ngOnInit
+   getCurrentLeadsOfSelectedCmp(){
+
+   }
              onItemSelect(item: any, i) {
                             //   console.log('Aarif');
                           //    console.log(this.myLead[i].selectedUserList);

@@ -68,19 +68,21 @@ this.document = new Document();
    return throwError(error);
 }
 );
+if(sessionStorage.getItem('role')==='SuperAdmin'){
+            this.prjService.getAllCompanies().subscribe((data: Company[])=>{
+              // console.log(data);
+              this.companies = data;
+              // this.SuperAdminB = true;
+              console.log('CompanyList',this.companies);
+              // this.project.companyId= +sessionStorage.getItem('CompanyId');
+              //this.loading=false;
+            },error=>{
+              //this.loading = false;
+              console.error('Error in get Api, Companies!');
+              return throwError(error);
+            });
+}
 
-this.prjService.getAllCompanies().subscribe((data: Company[])=>{
-  // console.log(data);
-   this.companies = data;
-  // this.SuperAdminB = true;
-   console.log('CompanyList',this.companies);
-  // this.project.companyId= +sessionStorage.getItem('CompanyId');
-   //this.loading=false;
- },error=>{
-   //this.loading = false;
-   console.error('Error in get Api, Companies!');
-  return throwError(error);
- });
  }
 
   ngOnInit() {
@@ -107,7 +109,8 @@ this.prjService.getAllCompanies().subscribe((data: Company[])=>{
     this.router.navigate(['userhome/location']);
    
   }
-  getProjectsofCompany(){
+  getProjectsofSelectedCompany(){
+    this.loading=true;
     console.log('project list');
     for(let index=0;index<this.companies.length;index++){
           if(this.companyName===this.companies[index].companyName){
@@ -117,9 +120,9 @@ this.prjService.getAllCompanies().subscribe((data: Company[])=>{
               this.length=this.projects.length;
               this.projectsOfCompany=data;
               console.log('projectlist',this.projectsOfCompany);
-             
+             this.loading=false;
             }, error=>{
-             //  this.loading=false;
+             this.loading=false;
                console.log('Error in get projects of company api, try again');
                return throwError(error);
             }

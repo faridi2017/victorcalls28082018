@@ -49,9 +49,9 @@ export class MyfileComponent implements OnInit {
  uploadExcelFiles(){
   const frmData = new FormData();
   for (var i = 0; i < this.myFiles.length; i++) { 
-    frmData.append("file", this.myFiles[i]);
+    frmData.append("File", this.myFiles[i]);
   }
-  this.srv.uploadsLeadsExcelFile(frmData).subscribe(res=>{
+  this.srv.uploadsLeadsExcelFile(frmData,sessionStorage.getItem('userName')).subscribe(res=>{
     console.log('excel file uploaded',res);
     alert('file uploaded successfully');
     this.router.navigate(['/userhome/home']);

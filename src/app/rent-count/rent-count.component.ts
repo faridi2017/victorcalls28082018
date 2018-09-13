@@ -15,6 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class RentCountComponent implements OnInit {
 
   blist;
+  statusIdRentCountLead;
  public myLead: MyLead[];
  public selectedLead: MyLead[];
    dropdownSettings = {};
@@ -45,7 +46,7 @@ export class RentCountComponent implements OnInit {
  
    constructor(private rawLeadService: VictorServiceService, private router: Router,
   private spinner:NgxSpinnerService) {
-     
+     this.statusIdRentCountLead='13';
      this.selectedLead = [];
      this.router.routeReuseStrategy.shouldReuseRoute = function(){
        return false;
@@ -98,7 +99,8 @@ export class RentCountComponent implements OnInit {
     */
  // calling get api for raw leads
  this.loading=true;
-     this.rawLeadService.getUserLeads('13',sessionStorage.getItem('userName')).subscribe((data: MyLead[]) => {
+
+     this.rawLeadService.getUserLeads(this.statusIdRentCountLead,sessionStorage.getItem('userName')).subscribe((data: MyLead[]) => {
             
                              this.indexL = data.length;
                             // this.myLead =  MyLead[this.indexL];

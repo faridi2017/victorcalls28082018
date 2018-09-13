@@ -24,7 +24,7 @@ blist;
     dropdownSettingsA = {};
     dropdownListA = [];
     selectedUserListA = [];
-   
+    length;
     indexL;
     indexLI;
     leadItems: MyItems[];
@@ -95,6 +95,8 @@ blist;
              
                               this.indexL = data.length;
                               this.myLead = data;
+                              this.length=this.myLead.length;
+                              
                               this.loading=false;
                                     for(let i=0; i<this.indexL; i++ ) {
                                       for(let j=0; j<this.myLead[i].items.length; j++){

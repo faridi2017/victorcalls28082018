@@ -83,7 +83,7 @@
                     <option *ngFor="let role of roles">{{role}}</option>
                   </select>
                   </div>
-                    <div class="form-group">
+                    <div class="form-group" [hidden]="bSelectProject">
                       <label>Project Name</label>
                       <select formControlName="projectName" required="" class="form-control" 
                       [(ngModel)]="user.project.projectName" (change)="selectedProject()" style="padding: 9px;">
@@ -91,7 +91,7 @@
                       <option *ngFor="let project of projects">{{project}}</option>
                     </select>
                     </div>
-                    <button type="submit" [disabled]="!createuserForm.valid" class="btn btn-success btn-icon" 
+                    <button type="submit" class="btn btn-success btn-icon" 
                     style="margin-left: 10px;">Save</button>
                     <button (click)="cancleuser()"  class="btn btn-success btn-icon" 
                     style="margin-left: 10px;">Cancel</button>

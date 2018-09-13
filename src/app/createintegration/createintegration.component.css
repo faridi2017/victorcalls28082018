@@ -2,7 +2,10 @@
     margin-left: 20%;
    }
 
-
+.btn-2{
+    background: #ece8e8;
+    color: #ffffff;
+}
  @media only screen and (max-width: 768px) {
     .main-panel{
         margin-left: 0px;

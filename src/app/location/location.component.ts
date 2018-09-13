@@ -16,6 +16,7 @@ declare var ol: any;
 })
 export class LocationComponent implements OnInit {
 showPosition;
+bCompanyId=true;
 companies: Company[];
 lblPro=false;
 SuperAdminB=true;
@@ -154,7 +155,7 @@ createProject(createProjectForm){
       console.log('success',res);
       this.loading=false;
       alert('Project Created Successfully');
-      this.router.navigateByUrl('/superadmin/projects');
+      this.router.navigateByUrl('/userhome/projects');
     },error=>{
       this.loading = false;
       console.error('Error in post Api, create project');
@@ -200,7 +201,10 @@ validateComp(){
  for(let i=0;i<=this.companies.length;i++){
    if(this.companyName===this.companies[i].companyName){
      this.project.companyId=this.companies[i].companyId;
+     this.bCompanyId=true;
      break;
+   }else{
+     this.bCompanyId=false;
    }
 
  }

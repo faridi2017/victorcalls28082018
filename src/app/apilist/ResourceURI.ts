@@ -1,10 +1,10 @@
 export  class ResourceURI {
     private static host = 'http://api.victorcalls.com';
     private static hostP = 'http://192.168.1.10:5000/api/victor/';
-
-
     public static pLogin = ResourceURI.host + '/token';  // for login post api
 
+    
+                                //All GET API
     //uploads leads file
     public static pUploadLeads = ResourceURI.host + '/api/Leads/ExcelUpload';
     // assignee list
@@ -112,4 +112,14 @@ export  class ResourceURI {
 
   //50.62.160.53/ph12513175871/Modinagar@7/21
   public static gLocations = ResourceURI.host + '/api/leads/locations?userName=';
+
+  //get Api for getting Leads
+  //api/Leads/Company?CompanyID=1&statusid=2
+  public static gLeadsWithStatusIdAndCompanyId = ResourceURI.host + '/api/Leads/Company?CompanyID=';
+
+  //get rawLeads by companyId with pagination
+    public static gRawLeadsByCompId = ResourceURI.host + '/api/Leads/Company/RawLeadsWithPaging?CompanyID=';
+///api/account/LeadSource/Validate?startDate=09/11/2018&endDate=11/11/2018&CompanyId=46
+    public static pTestIntegration = ResourceURI.host + '/api/account/LeadSource/Validate?';
+
 }

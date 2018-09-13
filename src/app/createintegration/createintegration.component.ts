@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Integrations } from '../modal/integrations';
 import { Router } from '@angular/router';
+import { Pipe, PipeTransform } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { IdName } from '../modal/id-name';
 import { VictorServiceService } from '../apiService/victor-service.service';
@@ -17,26 +19,42 @@ import { Company } from '../modal/company';
 export class CreateintegrationComponent implements OnInit {
 newIntegration: Integrations;
 createIntergrationForm;
+listIntegration: Integrations[];
 companies: Company[];
 lblComp = false;
 lblUser = false;
 lblPass = false;
 companyName;
+bTestIntegBtn=true;
+bStartDate=false;
+bEndDate=false;
 name="";
-show=false;
+bHideBtn=true;
+show=true;
 companyId="";
 userName="";
 value="";
 loading=false;
 compId;
-  constructor(private router: Router, private srv: VictorServiceService,) {
+cmpIdForInteg=sessionStorage.getItem('cmpIdForInteg');
+cmpNameForInteg=sessionStorage.getItem('cmpNameForInteg');
+sDate: string;
+eDate: string;
+
+bsRangeValue: Date[];
+// sessionStorage.setItem('cmpIdForInteg',this.companyId);
+//sessionStorage.setItem('cmpNameForInteg',this.companyName);
+//y2PMAab10Yk~~~~~~3D
+  constructor(private router: Router, private srv: VictorServiceService, private datePipe: DatePipe) {
+    this.listIntegration=[];
     this.newIntegration = new Integrations();
     this.newIntegration.sourceType = new IdName();
-  
-    this.compId=sessionStorage.getItem('compId');
+    //sessionStorage.setItem('CompanyId',res.CompanyId);
+    this.companyId = sessionStorage.getItem('CompanyId');
+  this.newIntegration.companyId= +sessionStorage.getItem('cmpIdForInteg');
+  this.newIntegration.sourceType.id=0;//assigning nothing, will be assign by back-end
     this.createIntergrationForm=new FormGroup({
       'Name':new FormControl('',Validators.compose([Validators.required])),
-      'companyId':new FormControl('',Validators.compose([Validators.required])),
       'userName':new FormControl('',Validators.compose([Validators.required])),
       'value':new FormControl('',Validators.compose([Validators.required])),
     });
@@ -58,40 +76,40 @@ compId;
   ngOnInit() {
     
   }
+  testIntegrationWithDate(){
+    return;
+  }
  
      //newIntegration.value
-     createIntegration(createIntergrationForm){
+     createIntegration1(createIntergrationForm){
        this.name=createIntergrationForm.Name;
-       this.companyId=createIntergrationForm.companyId;
+      // this.companyId=sessionStorage.getItem('cmpIdForInteg');
        this.userName=createIntergrationForm.userName;
        this.value=createIntergrationForm.value;
-       if(this.name.length===0||this.companyId.length===0||
-           this.userName.length===0||this.value.length===0){
-             console.log(this.name,this.companyId,this.userName,this.value);
+       if(this.name.length===0||this.userName.length===0||
+           this.value.length===0){
+             console.log(this.name,this.userName,this.value);
         alert('Please Fill All Filed');
         return;
        }else{
          this.loading=true;
-         this.newIntegration.sourceType.id=0;
+         
          console.log('created integration:',this.newIntegration);
-        this.srv.postIntegrations(sessionStorage.getItem('integCmpId'), this.newIntegration).subscribe((res:any)=>{
+        this.srv.postIntegrations(sessionStorage.getItem('cmpIdForInteg'), this.newIntegration).subscribe((res:any)=>{
           console.log('integ created: ', res);
           this.loading=false;
         },error =>{
           this.loading=false;
           alert('Integration could not be added, Try again');
           this.router.navigateByUrl('/userhome/manageIntegrations');
-          console.error('error in api');
+          console.error('error in create integration api');
           return throwError(error);
         }
       );
         alert('Company Intergatred Successfully');
         this.router.navigateByUrl('/userhome/manageIntegrations');
        }
-
-
-
-      
+ 
      }
      cancelIntegration(){
       this.router.navigate(['/userhome/manageIntegrations']);
@@ -108,16 +126,58 @@ compId;
          this.lblComp=true;
      }
 
-    
+     testIntegration(){
+     // this.bsRangeValue = [this.sDate, this.eDate];
+      console.log('new Integration',this.newIntegration);
+      this.listIntegration.push(this.newIntegration);
+      console.log('list',this.listIntegration);
+      this.srv.postTestIntegration(this.sDate,this.eDate,this.companyId,this.listIntegration).subscribe((res:any)=>{
+        console.log('integ created: ', res);
+        alert('successfullt integration');
+        this.bHideBtn=false;
+       // this.loading=false;
+      },error =>{
+       // this.loading=false;
+        alert('Fail Test Integration, Try again');
+      //  this.router.navigateByUrl('/userhome/manageIntegrations');
+        console.error('error in test integration api');
+        return throwError(error);
+      }
+    );
+     }
+  
+     selectStartDate(item:any){
+       //console.log('Start Date',this.datePipe.transform(this.sDate,"MM/dd/yyyy"));
+       this.sDate=this.datePipe.transform(item,"MM/dd/yyyy");
+       let myDate = this.datePipe.transform(this.sDate,"MM/dd/yyyy");
+       console.log('start date here',this.sDate);
+       //this.datePipe.transform(date,"yyyy-MM-dd")
+       this.bStartDate=true;
+       if(this.bEndDate===true){
+         this.bTestIntegBtn=false;
+       }
+     }
+     
+     selectEndDate(item:any){
+      // console.log('End Date', this.eDate.getDay());
+       this.eDate = this.datePipe.transform(item,"MM/dd/yyyy");
+       console.log('end date here',this.eDate);
+       this.bEndDate=false;
+       if(this.bStartDate===true){
+         this.bTestIntegBtn=false;
 
+       }
 
+     }
     selectedProject(){
       //   <option>99 Acres</option>
      // <option>Magicbricks</option>
-     if(this.newIntegration.sourceType.name=="99 Acres" || this.newIntegration.sourceType.name=="Magicbricks" ){
-        this.show= true;
+     this.newIntegration.sourceType.id=+'1';
+     this.newIntegration.companyId = +this.companyId;
+     if(this.newIntegration.sourceType.name=="Magicbricks"){
+        this.show= false;
      }else{
-       this.show = false;
+       this.show = true;
      }
       return;
           }

@@ -11,6 +11,7 @@ import { findIndex } from 'rxjs/operators';
 import { Registration } from '../modal/Registration';
 import { IdName } from '../modal/id-name';
 import { Nameid } from '../modal/nameid';
+import { Company } from '../modal/company';
 
 
 @Component({
@@ -56,6 +57,7 @@ numberOfPage = Math.ceil(this.rawLeadsCount/10);
     dropdownList = [];
     selectedUserList = [];
     userList = [];
+    blankUserList: string[];
   projectList = ['99acre','housing.com','ASC','DLF'];
     dropdownSettingsA = {};
     dropdownListA = [];
@@ -65,6 +67,8 @@ numberOfPage = Math.ceil(this.rawLeadsCount/10);
     selectedUserListA = [];
     selectedProjectName;
     indexL;
+    selectedCompanyName;
+    selectedCompanyId;
     indexLI;
     indexRawLeads;
     leadItems: MyItems[];
@@ -74,36 +78,39 @@ numberOfPage = Math.ceil(this.rawLeadsCount/10);
     isUserSelect = false;
     isAssignSelect = false;
     isButton = false;
-    
+    companies: Company[];
     msg = false;
     msg2 = false;
+    bCmpApi=false;
     public numberOfSelectedLead = 0;
     key;
     indicesOfSelectedLeads = [];
   
     constructor(private rawLeadService: VictorServiceService, private router: Router,
       private httpService: HttpClient, ) {
+        this.selectedCompanyId=sessionStorage.getItem('CompanyId');
       //this.myLead = new MyLead[10];
       this.projectNameList = ['Select A project'];
       this.uniqueNameList =[];
       this.userNameId= [];
 this.users = [];
- //this.myLead1 = [];
-      this.rawLeadService.getRawLeads(sessionStorage.getItem('userName')).subscribe((data: MyLead[]) => {
-        this.indexRawLeads = data.length;
-        this.numberOfRecords=data.length;
-        this.myLead1 = data;
-        console.log(this.myLead1[0]);
-        this.bExcel = true;
-       // console.log('myleads1',this.myLead1);
-        return true;
-         },
-         error => {
-                   console.error("Error in Api!");
-                   return throwError(error);  // Angular 6/RxJS 6
-                  }
-         ); 
-      
+if(sessionStorage.getItem('role')==='SuperAdmin'){
+this.loading=true;
+  this.rawLeadService.getAllCompanies().subscribe((data: Company[])=>{
+    this.companies = data;
+    this.loading=false;
+    this.selectedCompanyId=this.companies[0].companyId;
+    console.log('CompanyList',this.companies,this.companies.length);
+
+  },error=>{
+    this.loading=false;
+    console.error('Error in get Api, Companies!');
+    return throwError(error);
+ });
+}
+ this.pageNumber=1;
+
+       
       this.selectedLead = [];
       this.myLead1 = [];
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
@@ -121,7 +128,31 @@ this.users = [];
      } // end of constructor
   
     ngOnInit() {
-      
+      let index=0;
+   //   this.selectedCompanyId=this.companies[index].companyId;
+     // this.selectedCompanyName=this.companies[index].companyName;
+      this.pageNumber=1;
+      this.loading=true;
+      this.rawLeadService.getTenRawLeads1(this.selectedCompanyId,this.pageNumber).subscribe((data: MyLead[]) => {
+        this.indexL = data.length;
+         this.myLead = data;
+        console.log('leads',this.myLead);
+        this.loading=false;
+      for(let i =0;i<this.myLead.length;i++){
+       this.x[i] = this.myLead[i].cmpctLabel.substring(0,20);
+      }//cmpctLabel.substring
+      for(let i =0;i<this.myLead.length;i++){
+       this.xN[i] = this.myLead[i].name.substring(0,20);
+      }//cmpctLabel.substring
+      return true;
+         },
+         error => {
+           this.loading=false;
+                   console.error("Error in Api!");
+                   return throwError(error);  // Angular 6/RxJS 6
+                  }
+         );
+          
       this.dropdownSettings = {
         singleSelection: false,
         idField: 'item_id',
@@ -141,31 +172,37 @@ this.users = [];
   
       this.pageNumber = 1;
       this.loading=true;
-      this.rawLeadService.getTenRawLeads(this.pageNumber).subscribe((data: MyLead[]) => {
-               this.indexL = data.length;
-                this.myLead = data;
-                this.loading=false;
-               
-             for(let i =0;i<this.myLead.length;i++){
-              this.x[i] = this.myLead[i].cmpctLabel.substring(0,20);
-             }//cmpctLabel.substring
-             for(let i =0;i<this.myLead.length;i++){
-              this.xN[i] = this.myLead[i].name.substring(0,20);
-             }//cmpctLabel.substring
-            return true;
-
-                },
-                error => {
-                  this.loading=false;
-                          console.error("Error in Api!");
-                          return throwError(error);  // Angular 6/RxJS 6
-                         }
-                ); 
-             
-              
-
-                                
     }  // end of ngOnInit
+    getRawLeadsOfSelectedCmp(){
+      for(let index=0;index<this.companies.length;index++){
+        if(this.selectedCompanyName===this.companies[index].companyName){
+
+          console.log(this.selectedCompanyName);
+          this.loading=true;
+          this.rawLeadService.getTenRawLeads1(this.companies[index].companyId,this.pageNumber).subscribe((data: MyLead[]) => {
+            this.indexL = data.length;
+             this.myLead = data;
+            this.loading=false;
+          console.log('leadssss',this.myLead,data.length);
+            
+          for(let i =0;i<this.myLead.length;i++){
+           this.x[i] = this.myLead[i].cmpctLabel.substring(0,20);
+          }//cmpctLabel.substring
+          for(let i =0;i<this.myLead.length;i++){
+           this.xN[i] = this.myLead[i].name.substring(0,20);
+          }//cmpctLabel.substring
+          return true;
+          
+             },
+             error => {
+           this.loading=false;
+                       console.error("Error in Api!");
+                       return throwError(error);  // Angular 6/RxJS 6
+                      }
+             );
+        }
+      }
+    }
               onItemSelect(item: any, i) {
                             
                                 } // end of onItemSelect
@@ -174,6 +211,7 @@ this.users = [];
                                  
                                  // event on check box
                              onRowSelect(event: any, i) {
+
                                   if(event== true){
                                   this.numberOfSelectedLead = this.numberOfSelectedLead +1;
                                   this.indicesOfSelectedLeads.push(i);
@@ -197,21 +235,30 @@ this.users = [];
       
           
   getDatabyPageNumber(){
+    
               console.log('page number');
-              if(this.pageNumber>0 && this.pageNumber <=this.numberOfPage){
-                this.rawLeadService.getTenRawLeads(this.pageNumber).subscribe((data: MyLead[]) => {
+              if(this.pageNumber>0){
+                this.loading=true;
+                this.rawLeadService.getTenRawLeads1(this.selectedCompanyId,this.pageNumber).subscribe((data: MyLead[]) => {
                   this.indexL = data.length;
-                  this.myLead = data;
-                //  console.log(this.myLead);
+                   this.myLead = data;
+                   this.loading=false;
                   
-                  // this.myLead1 = this.myLead.slice(0,5);
-                  return true;
-                  },
-                  error => {
-                            console.error("Error in Api!");
-                            return throwError(error);  // Angular 6/RxJS 6
+                for(let i =0;i<this.myLead.length;i++){
+                 this.x[i] = this.myLead[i].cmpctLabel.substring(0,20);
+                }//cmpctLabel.substring
+                for(let i =0;i<this.myLead.length;i++){
+                 this.xN[i] = this.myLead[i].name.substring(0,20);
+                }//cmpctLabel.substring
+               return true;
+   
+                   },
+                   error => {
+                     this.loading=false;
+                             console.error("Error in Api!");
+                             return throwError(error);  // Angular 6/RxJS 6
                             }
-                  ); 
+                   ); 
               }else{
                 this.alertMsg = this.alertMsg + String(this.numberOfPage);
               alert(this.alertMsg);
@@ -230,7 +277,7 @@ this.users = [];
 
           openModelWindow(){
             for(let j = 0; j<this.indicesOfSelectedLeads.length; j++){
-              this.myLead[this.indicesOfSelectedLeads[j]].assignedToUsers = this.selectedUserListA[0];
+            //  this.myLead[this.indicesOfSelectedLeads[j]].assignedToUsers = this.selectedUserListA[0];
               this.selectedLead.push(this.myLead[this.indicesOfSelectedLeads[j]]);
             //  this.selectedLead.push(this.myLead[this.indicesOfSelectedLeads[j]]);
                }
@@ -300,6 +347,9 @@ this.users = [];
                }else{this.isUserSelect = false;}
                         
                } // end of onItemSelectA
+               noSelection(){
+                 return;
+               }
             assignLeads(){
               console.log('assign leads');
               for(let i =0;i<this.selectedLead.length;i++)
@@ -319,6 +369,7 @@ this.users = [];
                          this.selectedLead[i].items[j].leadID = this.selectedLead[i].leadId;
                          this.selectedLead[i].items[j].statusId =1;
                          this.selectedLead[i].items[j].status = 1;
+                         this.selectedLead[i].status = 1;
                          this.selectedLead[i].items[j].companyId = this.selectedProjectId;
                                   
                                   this.spliceIndexS = j+1;
@@ -332,7 +383,7 @@ this.users = [];
                         this.spliceIndexE = this.selectedLead[i].items.length - this.spliceIndexS;
                         this.selectedLead[i].items.splice(this.spliceIndexS,this.spliceIndexE);
                   }
-                  console.log('updated leads',this.selectedLead);
+                  console.log('updateded leads',this.selectedLead);
                 //  console.log('selected user id',this.multiSelectDropdownSelectedUsers);
              for(let i=0;i<this.selectedLead.length;i++){
                    this.loading=true;

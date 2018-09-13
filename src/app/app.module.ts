@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 
 
 import { HttpClientModule, } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VictorServiceService } from './apiService/victor-service.service';
 import { MainComponent } from './main/main.component';
@@ -64,7 +64,8 @@ import { VchomeComponent } from './vchome/vchome.component';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { CreateDocumentComponent } from './create-document/create-document.component';
 import { TemptestComponent } from './temptest/temptest.component';
-
+import { BsDatepickerModule } from 'ngx-bootstrap';
+import { LeadsComponent } from './leads/leads.component';
 
 
 const appRoutes: Routes = [
@@ -104,7 +105,8 @@ const appRoutes: Routes = [
           {path: 'updateCompany',component: UpdateCompanyComponent},
           {path: 'vcdashboard',component: VcdashboardComponent},
           {path: 'createDocument',component: CreateDocumentComponent},
-          {path: 'temptest',component: TemptestComponent}
+          {path: 'temptest',component: TemptestComponent},
+          {path: 'leadsuserproject',component: LeadsComponent}
         //  {path: 'logout', component: }
     ]},
 
@@ -160,7 +162,8 @@ const appRoutes: Routes = [
     VcdashboardComponent,
     VchomeComponent,
     CreateDocumentComponent,
-    TemptestComponent
+    TemptestComponent,
+    LeadsComponent
    
      ],
   imports: [
@@ -173,24 +176,24 @@ const appRoutes: Routes = [
       animationType: ANIMATION_TYPES.rectangleBounce,
       backdropBackgroundColour: 'rgba(0,0,0,0.1)', 
       backdropBorderRadius: '4px',
-      primaryColour: '#7d9156', 
+      primaryColour: '#0d90bc', 
       secondaryColour: '#f7b332', 
       tertiaryColour: '#d25e30'
       
       
   }),
+  BsDatepickerModule.forRoot(),
     FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBYBY5dswX8ks7M7c7YoQinAEgYwEHg1Ds'
     }),
     ReactiveFormsModule,
     CommonModule,
-    NgxSpinnerModule
-   
-    
-    
+    NgxSpinnerModule,
+
+      
   ],
-  providers: [VictorServiceService, HttpClientModule,
+  providers: [VictorServiceService, HttpClientModule, DatePipe
     ],
   bootstrap: [AppComponent]
 })

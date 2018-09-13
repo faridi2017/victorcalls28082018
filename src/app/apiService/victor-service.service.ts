@@ -60,9 +60,9 @@ export class VictorServiceService {
 
 
   // uploads excel file
-  public uploadsLeadsExcelFile(formdata: FormData):Observable<any> {
+  public uploadsLeadsExcelFile(formdata: FormData,userName):Observable<any> {
       
-        return this.http.post(ResourceURI.pUploadLeads, formdata);
+        return this.http.post(ResourceURI.pUploadLeads+'?userName='+userName, formdata);
    } // end of login
  // get raw leads, ie all leads
  public uploadsDocument(formdata: FormData,prjID):Observable<any> {
@@ -79,6 +79,9 @@ export class VictorServiceService {
   public getRawLeadsCmp(companyId) {
         return this.http.get(ResourceURI.gRawLeadsCmp + companyId, httpOptions);
    }// end of getUrlLeads
+   public getCmpLeadsByStatus(companyId,statusId) {
+    return this.http.get(ResourceURI.gLeadsWithStatusIdAndCompanyId + companyId+'&statusid='+statusId, httpOptions);
+}// end of getUrlLeads
 
 //get all user by companyId
 getAllUserCmp(companyId){
@@ -97,7 +100,12 @@ public getTenRawLeads(pageNumber)
        return this.http.get(ResourceURI.gTenRawLeadsPno+sessionStorage.getItem('userName')+
                                '&pagesize=10&pagenumber='+pageNumber,httpOptions);
            }// e
-
+public getTenRawLeads1(companyId,pageNumber)
+           {
+            pageNumber = String(pageNumber);
+             return this.http.get(ResourceURI.gRawLeadsByCompId+companyId+
+                                 '&pageSize=10&pageNumber='+pageNumber,httpOptions);
+                 }//
   // get count of all type of leads
 public getDetails(userName) {
     //console.log('at service');
@@ -238,30 +246,13 @@ public postProject(project: Project):Observable<any>{
             return this.http.get(ResourceURI.gLocations + userName ,httpOptions);
             //return this.http.get(ResourceURI.gLocations + userName ,httpOptions);
           }
+        
+      public postTestIntegration(sDate,eDate,CompanyId,newIntegration:Integrations[]):Observable<any>{
+        //startDate=09/11/2018&endDate=11/11/2018&CompanyId=46
+        let addUrl = 'startDate='+sDate+'&endDate='+eDate+'&CompanyId='+CompanyId;
+            return this.http.post(ResourceURI.pTestIntegration+addUrl,newIntegration,httpOptions);
+      }
 }
 
 //https://angular.io/guide/form-validation
 //https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/
-/*
-
-{
-        "companyId": 3,
-        "companyName": "Brandsbrother",
-        "email": "info@brandsbrother.com",
-        "phone": "starrr@gmail.com",
-        "companyAddress": "10, Teachers COlony",
-        "city": "Ghaziabadd",
-        "state": "U.P",
-        "country": "India",
-        "contactPersonName": "Amitt Bhatia",
-        "contactPhone": "9891234567",
-        "contactEmail": "amitk@stargroup.com",
-        "activatedTill": "2008-05-01T08:30:00",
-        "isActivated": false,
-        "companyType": 1,
-        "logopath": null,
-        "integrations": null
-    }
-
-
-*/

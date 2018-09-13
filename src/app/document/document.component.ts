@@ -65,7 +65,7 @@ this.documents = [];
   for (var i = 0; i < this.myFiles.length; i++) { 
     frmData.append("file", this.myFiles[i]);
   }
-  this.docService.uploadsLeadsExcelFile(frmData).subscribe(res=>{
+  this.docService.uploadsLeadsExcelFile(frmData,sessionStorage.getItem('CompanyId')).subscribe(res=>{
     console.log('excel file uploaded',res);
     alert('file uploaded successfully');
   });

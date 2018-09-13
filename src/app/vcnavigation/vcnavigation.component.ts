@@ -3,6 +3,7 @@ import { UserLeads } from '../modal/userLeads';
 import { VictorServiceService } from '../apiService/victor-service.service';
 import {throwError} from 'rxjs';
 import { Routes, Router } from '../../../node_modules/@angular/router';
+import { Company } from '../modal/company';
 @Component({
   selector: 'app-vcnavigation',
   templateUrl: './vcnavigation.component.html',
@@ -12,14 +13,45 @@ export class VcnavigationComponent implements OnInit {
 leadsCount:UserLeads;
 vedagya19 = false;
 show=false;
+showIntegration=false;
+userRole;
+companies: Company[];
 public user;
+
+loginCompanyName;
+bUploadExcel=true;
 showCompany;
   constructor(private getCounts:VictorServiceService,private router:Router) {
     this.user =sessionStorage.getItem('userName');
+    this.userRole = sessionStorage.getItem('role');
+    if(this.userRole==='Admin'){
+        this.showIntegration= true;
+    }else{
+      this.showIntegration=false;
+    }
+    this.getCounts.getAllCompanies().subscribe((data: Company[])=>{
+      this.companies = data;
+     // this.loginCompanyName = sessionStorage.getItem('CompanyId');
+      for(let index=0;index<this.companies.length;index++){
+          if(this.companies[index].companyId==+sessionStorage.getItem('CompanyId')){
+            this.loginCompanyName = this.companies[index].companyName;
+            sessionStorage.setItem('loginCompany',this.loginCompanyName);
+            break;
+          }
+      }
+     
+  
+    },error=>{
+      
+      console.error('Error in get Api, Companies!');
+      return throwError(error);
+   });
     if(sessionStorage.getItem('role')==='SuperAdmin'){
       this.showCompany=true;
+      this.bUploadExcel=false;
     }else{
       this.showCompany=false;
+      this.bUploadExcel=true;
 
     }
     

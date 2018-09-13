@@ -12,10 +12,10 @@
             <div class="col-3"> <button class="btn btn-primary" style="margin-left: 10px;" (click)="createProject()">
               <i class="fa fa-plus" style="color:#dc6f33; font-size: 14px"></i>  Create project</button></div>
            <div class="col-6">
-              <label>Select Company</label>&nbsp;
+              <label *ngIf="companies">Select Company</label>&nbsp;
               <select *ngIf="companies"  [(ngModel)]="companyName" 
                  required="" placeholder="select Company" 
-                (change)="getProjectsofCompany()">
+                (change)="getProjectsofSelectedCompany()">
                 <option>------</option>
                 <option *ngFor="let company of companies">{{company.companyName}}</option>
                 

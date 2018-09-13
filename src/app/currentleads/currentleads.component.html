@@ -4,8 +4,26 @@
     </div>
     <div class="content-wrapper">
       <div class="card">
+          <div style="padding-top: 20px;" *ngIf='companies' > 
+              <div class="col-sm-12">Page
+                 <input type="number" [(ngModel)]="pageNumber">&nbsp;of&nbsp;{{numberOfPage}}
+              <button class="btn btn-success block" (click)="getDatabyPageNumber()" >Get Data</button>
+      
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Select Company</label>&nbsp;
+                <select [(ngModel)]="selectedCompanyName" 
+                   required="" placeholder="select Company" 
+                  (change)="getCurrentLeadsOfSelectedCmp()">
+                  <option>------</option>
+                  <option *ngFor="let company of companies">{{company.companyName}}</option>
+                  
+                </select>
+             
+              
+                 
+              </div>       
+            </div>
        <div class="card-body">
-          <h4 class="card-title" style="color:#131e42">Current Leads : {{indexL}}</h4>
+          <h4 class="card-title" style="color:#131e42">Current Leads : {{length}}</h4>
           <div class="row">
             <div class="col-12 table-responsive">
               <table id="mydatatable" class="table table-striped">

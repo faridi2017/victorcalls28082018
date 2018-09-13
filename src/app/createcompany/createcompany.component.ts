@@ -106,7 +106,7 @@ export class CreatecompanyComponent implements OnInit {
       this.loading=false;
       console.error('error in post api of create Company');
       alert('Company could not be created, Try again');
-      this.router.navigateByUrl('/superadmin/manageCompanies');
+      this.router.navigateByUrl('/userhome/manageCompanies');
       return throwError(error);
     }
   );
@@ -116,7 +116,7 @@ export class CreatecompanyComponent implements OnInit {
      }
   cancelCompany(){
     console.log('Data Cancel');
-    this.router.navigate(['/superadmin/manageCompanies']);
+    this.router.navigate(['/userhome/manageCompanies']);
   }
   validateEmail(){
     console.log('validate email');

@@ -18,6 +18,7 @@ export class CreateuserComponent implements OnInit {
   createuserForm;
   phoneB=false;
   phoneB0=false;
+  bSelectProject=true;
   cuser=false;
   pass=false;
   cpass=false;
@@ -53,10 +54,12 @@ cpy=false;
 cpn=false;
 roles: string[];
 projects: string[];
+projectList: Project[];
 
   constructor(private usersrv: VictorServiceService, private router:Router) { 
     this.user =new Registration();
     this.allRoles=[];
+   
     this.user.role = new Role();
     this.user.project = new Project();
     this.user1 = new Registration();
@@ -87,6 +90,8 @@ projects: string[];
 
  if(sessionStorage.getItem('roleId')=='1'){
    this.bRoleid = true;
+ }else{
+  this.bRoleid = true;
  }
     this.projects =[];
    
@@ -97,7 +102,8 @@ projects: string[];
           this.roles.push(user.name);
       }
     });
-    this.usersrv.getUserProject(sessionStorage.getItem('userName')).subscribe((data:any)=>{
+    this.usersrv.getUserProject(sessionStorage.getItem('userName')).subscribe((data:Project[])=>{
+      this.projectList=data;
       for(let user of data){
         this.projects.push(user.projectName);
     }
@@ -121,6 +127,11 @@ projects: string[];
      // console.log('password', this.user.password);
   }
   selectedRole(){
+    if(this.user.role.name=='Admin'){
+        this.bSelectProject=true;
+    }else{
+      this.bSelectProject=false;
+    }
      // console.log(this.user.role.name);
     for(let i =0;i<this.allRoles.length;i++){
                   if(this.user.role.name===this.allRoles[i].name)
@@ -132,6 +143,13 @@ projects: string[];
        }
     }
   selectedProject(){
+    console.log('selected project');
+    for(let index=0;index<this.projectList.length;index++){
+      if(this.user.project.projectName==this.projectList[index].projectName){
+         this.user.project.projectId=this.projectList[index].projectId;
+         this.user.projectId=this.projectList[index].projectId;
+      }
+     }
     //console.log(this.user.projectName);
      
   }
@@ -155,8 +173,7 @@ projects: string[];
     if(this.phoneNumber.length===0||this.userName.length===0||
       this.password.length===0||this.cPassword.length===0||
       this.companyID.length===0||this.email.length===0||
-      this.firstName.length===0||this.lastName.length===0||
-      this.projectName.length===0||this.roleName.length===0){
+      this.firstName.length===0||this.lastName.length===0||this.roleName.length===0){
         console.log(this.phoneNumber,this.userName,this.password,
           this.cPassword,this.companyID,this.email,this.firstName,
           this.lastName,this.projectName,this.roleName);

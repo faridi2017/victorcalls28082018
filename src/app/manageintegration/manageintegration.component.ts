@@ -21,13 +21,21 @@ sourceList=['99 acres', 'Facebook', 'Excelsheet', 'Google', 'Magic Bricks'];
 //sourceType: IdName;
   constructor(private srv: VictorServiceService, private router: Router,
   private spinner:NgxSpinnerService) { 
-this.companyName = sessionStorage.getItem('integCmpName');
-this.companyId = sessionStorage.getItem('integCmpId');
+    if(sessionStorage.getItem('role')==='Admin'){
+     // this.showIntegration= true;
+     this.companyName=sessionStorage.getItem('loginCompany');
+     this.companyId = sessionStorage.getItem('CompanyId');
+  }
+  if(sessionStorage.getItem('role')==='SuperAdmin'){
+    this.companyName = sessionStorage.getItem('integCmpName');
+     this.companyId = sessionStorage.getItem('integCmpId');
+  }
+
     this.integrations = [];
     this.newIntegration = new Integrations();
     this.newIntegration.sourceType = new IdName();
     this.loading=true;
-    this.srv.getIntegrations(sessionStorage.getItem('integCmpId')).subscribe((res: Integrations[])=>{
+    this.srv.getIntegrations(this.companyId).subscribe((res: Integrations[])=>{
       this.integrations = res;
       this.loading=false;
       console.log('integration of a company',this.integrations);
@@ -41,6 +49,8 @@ this.companyId = sessionStorage.getItem('integCmpId');
   
   }
   showForm(){
+    sessionStorage.setItem('cmpIdForInteg',this.companyId);
+    sessionStorage.setItem('cmpNameForInteg',this.companyName);
    this.router.navigate(['/userhome/createIntegration']);
   }
   

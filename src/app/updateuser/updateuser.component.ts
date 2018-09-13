@@ -4,6 +4,7 @@ import { VictorServiceService } from '../apiService/victor-service.service';
 import { Router } from '@angular/router';
   import {throwError} from 'rxjs';
 import { Role } from '../modal/Role';
+import { Project } from '../modal/project';
 @Component({
   selector: 'app-updateuser',
   templateUrl: './updateuser.component.html',
@@ -15,17 +16,24 @@ export class UpdateuserComponent implements OnInit {
   cpy=false;
   updateIndex;
   allRoles: Role[];
+  bRole;
   //companyIds =[1,2,3,4,5];
   updatedUser: Registration;
   cpn=false;
   roles: string[];
   projects: string[];
+  projectList: Project[];
     constructor(private usersrv: VictorServiceService, private router: Router) { 
       this.user =new Registration();
       this.user.role = new Role();
       this.users = [];
       this.roles = [];
       this.projects =[];
+      if(sessionStorage.getItem('role')==='Caller' ||  sessionStorage.getItem('role')==='Closure'){
+          this.bRole=true;
+      }else{
+        this.bRole=false;
+      }
       this.usersrv.getAllUser(sessionStorage.getItem('userName')).subscribe((data: Registration[])=>{
         this.users = data;
      // this.updateIndex =this.users.indexOf({ "id": 1 });
@@ -33,6 +41,9 @@ export class UpdateuserComponent implements OnInit {
           if(this.users[i].id===sessionStorage.getItem('updateId')){
             this.updateIndex = i;
             this.updatedUser = this.users[i];
+            
+            console.log('before update',this.updatedUser);
+            break;
           }
      }
       });
@@ -44,7 +55,9 @@ export class UpdateuserComponent implements OnInit {
            }
          });
      
-      this.usersrv.getUserProject(sessionStorage.getItem('userName')).subscribe((data:any)=>{
+      this.usersrv.getUserProject(sessionStorage.getItem('userName')).subscribe((data:Project[])=>{
+        this.projectList=data;
+        console.log('user projects',this.projectList);
         for(let user of data){
           this.projects.push(user.projectName);
       }
@@ -81,7 +94,13 @@ export class UpdateuserComponent implements OnInit {
       }
     selectedProject(){
     //  console.log(this.user.projectName);
-       
+    //updatedUser.project.projectName
+    for(let index=0;index<this.projectList.length;index++){
+       if(this.updatedUser.project.projectName==this.projectList[index].projectName){
+          this.updatedUser.project.projectId=this.projectList[index].projectId;
+          this.updatedUser.projectId= this.projectList[index].projectId;
+       }
+      }
     }
     selectedCompanyId(){
 
@@ -90,7 +109,7 @@ export class UpdateuserComponent implements OnInit {
       console.log('user updated',this.updatedUser);
       
     //console.log(this.user.phoneNumber);
-  //  console.log(this.user.userName);
+  console.log('updateduser',this.updatedUser);
     this.usersrv.updateUser(this.updatedUser).subscribe((res: any)=>{
      console.log(res);
      alert('update user successfully');

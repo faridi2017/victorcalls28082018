@@ -84,6 +84,7 @@ public userData: User;
                      //this.router.navigate(['']);
                    // this.loading = false;
                     console.error('Error in calling Login Api! Login Again');
+                    alert('Wrong user name or password');
                    return throwError(error);
                   });   
                  //  console.log('loginurl response', this.loginResult.HttpResponse);

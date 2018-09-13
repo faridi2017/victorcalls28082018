@@ -62,19 +62,24 @@
               </div>
               <div class="form-group">
                 <label>Role Name</label>
-                <select name="roleName" class="form-control" [(ngModel)]="updatedUser.role.name"
+                <select name="roleName" *ngIf="!bRole" class="form-control" [(ngModel)]="updatedUser.role.name"
                  (change)="selectedRole()" style="padding: 9px;">
                  <option>--------</option>
                 <option *ngFor="let role of roles">{{role}}</option>
               </select>
+              <input type="text" name="roleName" *ngIf="bRole" class="form-control" [(ngModel)]="updatedUser.role.name" readonly
+              style="padding: 9px;">
               </div>
               <div class="form-group">
                 <label>Project Name</label>
-                <select name="projectName" class="form-control" [(ngModel)]="updatedUser.project.projectName"
+                <select name="projectName" *ngIf="!bRole" class="form-control" [(ngModel)]="updatedUser.project.projectName"
                 (change)="selectedProject()" style="padding: 9px;">
                 <option>-----</option>
                <option *ngFor="let project of projects">{{project}}</option>
               </select>
+              <input type="text" name="projectName" *ngIf="bRole" class="form-control" 
+              [(ngModel)]="updatedUser.project.projectName" readonly
+              style="padding: 9px;">
               </div>
                <button type="submit" class="btn btn-success btn-icon" style="margin-left: 10px;">
                         Update</button>

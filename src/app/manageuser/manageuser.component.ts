@@ -27,23 +27,29 @@ display;
     this.sUser = new Registration();
     this.sUser.role = new Role();
     this.loading=true;
-    this.userService.getAllCompanies().subscribe((data: Company[])=>{
-      // console.log(data);
-     // this.loading=false;
-       this.companies = data;
-      // this.SuperAdminB = true;
-       console.log('CompanyList',this.companies);
-      // this.project.companyId= +sessionStorage.getItem('CompanyId');
-       //this.loading=false;
-     },error=>{
-       //this.loading = false;
-       console.error('Error in get Api, Companies!');
-      return throwError(error);
-     });
+    if(sessionStorage.getItem('role')==='SuperAdmin'){
+      this.loading=true;
+      this.userService.getAllCompanies().subscribe((data: Company[])=>{
+        // console.log(data);
+        this.companies = data;
+         this.loading=false;
+        // this.SuperAdminB = true;
+         console.log('CompanyList',this.companies);
+        // this.project.companyId= +sessionStorage.getItem('CompanyId');
+         //this.loading=false;
+       },error=>{
+       this.loading = false;
+         console.error('Error in get Api, Companies!');
+        return throwError(error);
+       });
+    }
+  
+     this.loading=true;
     this.userService.getAllUser(sessionStorage.getItem('userName')).subscribe((data: Registration[])=>{
       this.users = data;
       this.loading=false;
       this.length= this.users.length;
+      console.log('User List',this.users);
     }, error=>{
       this.loading=false;
       console.error('Error in get all user api, try again later');
@@ -94,18 +100,20 @@ showUser(user:Registration){
   console.log('Show User');
   this.sUser = user;
 }
-getUsersOfCompany(){
-  this.loading=true;
+getUsersOfSelectedCompany(){
+ // this.loading=true;
+ console.log('get User of company');
   for(let index=0;index<this.companies.length;index++){
     if(this.companyName===this.companies[index].companyName){
       console.log(this.companyName);
-      this.userService.getAllUser(sessionStorage.getItem('userName')).subscribe((data: Registration[])=>{
+      this.loading=true;
+      this.userService.getAllUserCmp(this.companies[index].companyId).subscribe((data: Registration[])=>{
         this.users = data;
-        this.loading=false;
+       this.loading=false;
         this.length= this.users.length;
       }, error=>{
-        this.loading=false;
-        console.error('Error in get all user api, try again later');
+       this.loading=false;
+        console.error('Error in get all user bu companyId api, try again later');
         return throwError(error);
       }
     );
