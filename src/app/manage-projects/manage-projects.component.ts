@@ -51,6 +51,11 @@ bExcel = false;
  
 constructor(private prjService: VictorServiceService, private http: HttpClient, private data: VictorServiceService,
   private router: Router,private spinner:NgxSpinnerService ) {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
 this.project = new Project();
 this.document = new Document();
 //this.document.dFile ='sd';
@@ -87,6 +92,10 @@ if(sessionStorage.getItem('role')==='SuperAdmin'){
 
   ngOnInit() {
     
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
    
   }
   getDocuments(projectID){

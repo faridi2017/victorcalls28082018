@@ -88,6 +88,10 @@ numberOfPage = Math.ceil(this.rawLeadsCount/10);
   
     constructor(private rawLeadService: VictorServiceService, private router: Router,
       private httpService: HttpClient, ) {
+        if(sessionStorage.getItem('userName')===null){
+          console.log('sesson strorage', sessionStorage.getItem('userName'));
+          this.router.navigate(['']);
+        }
         this.selectedCompanyId=sessionStorage.getItem('CompanyId');
       //this.myLead = new MyLead[10];
       this.projectNameList = ['Select A project'];
@@ -128,6 +132,10 @@ this.loading=true;
      } // end of constructor
   
     ngOnInit() {
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
       let index=0;
    //   this.selectedCompanyId=this.companies[index].companyId;
      // this.selectedCompanyName=this.companies[index].companyName;

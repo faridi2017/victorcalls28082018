@@ -1,27 +1,31 @@
 <div *ngIf="leadsCount" class="w3-sidebar w3-bar-block w3-border-right" style="
-background:#00Bfff;color:#131e42;width:265px;box-shadow: 2px 2px 2px 2px #cccccc;" id="mySidebar">
+color:#131e42;width:265px;box-shadow: 1px 1px 1px 1px #555555;" id="mySidebar">
 
   <button onclick="w3_close()" class="w3-bar-item w3-large" 
-  style="background:#00Bfff;color:#131e42;"><span>
-      <img src="assets/images/VC-512-px-512px.png" alt="profile image" style="height: 50px;margin-left: 20px;">
+  style="background:#00Bfff;color:#131e42; box-shadow: 2px 2px 2px 2px #555555;"><span>
+      <img src="assets/images/VC-512-px-512px.png" alt="profile image" style="height: 35px;margin-left: 20px;">
   </span>
-  <i class="fa fa-window-close" style="font-size:28px;color:white;margin-left:70px;
+  <i class="fa fa-window-close" style="font-size:20px;color:white;margin-left:120px;
     border-radius:25px;margin-top:8px"></i> </button>
   
     <p *ngIf='false'  class="w3-bar-item w3-button">{{loginCompanyName}}</p>
   
-  <a routerLink="home" class="w3-bar-item w3-button"> <i class="fa fa-tachometer"></i> &nbsp;Dashboard ({{userRole}})</a>
+  <a routerLink="home" class="w3-bar-item w3-button"> <img src="assets/icons/Home.svg" 
+    style="height: 20px;"> &nbsp;Dashboard ({{userRole}})</a>
   <!--<a routerLink="manageIntegrations" class="w3-bar-item w3-button" *ngIf="vedagya19">
     Manage Integrations</a>-->
-  <a routerLink="projects" class="w3-bar-item w3-button"><i class="fa fa-users"></i> &nbsp; Projects</a>
-  <a routerLink="manageUser" class="w3-bar-item w3-button"><i class="fa fa-user"></i> &nbsp; Users</a>
-  <a routerLink="manageCompanies" class="w3-bar-item w3-button" *ngIf="showCompany"><i class="fa fa-industry"></i> 
-     &nbsp; Companies</a>
-     <a routerLink="manageIntegrations" class="w3-bar-item w3-button" *ngIf="showIntegration"><i class="fa fa-industry"></i> 
-      &nbsp; Integration</a>
+  <a routerLink="projects" class="w3-bar-item w3-button"><img src="assets/icons/projects.svg" 
+    style="height: 20px;"> &nbsp; Projects</a>
+  <a routerLink="manageUser" class="w3-bar-item w3-button"><img src="assets/icons/User.svg" 
+    style="height: 20px;"> &nbsp; Users</a>
+  <a routerLink="manageCompanies" class="w3-bar-item w3-button" *ngIf="showCompany"><img src="assets/icons/Companies.svg" 
+    style="height: 20px;"> &nbsp; Companies</a>
+  <a routerLink="manageIntegrations" class="w3-bar-item w3-button" *ngIf="showToAdminOnly"><img src="assets/icons/Integration.svg" 
+      style="height: 20px;"> &nbsp; Integration</a>
   
   <div><button (click)="showHide()" style="background: transparent;border: none;" 
-     class="w3-bar-item w3-button"><i class="fa fa-dropbox"></i> &nbsp;Leads  <i class="fa fa-caret-down"></i></button>
+     class="w3-bar-item w3-button"><img src="assets/icons/Leads.svg" 
+     style="height: 25px;"> &nbsp;Leads  <i class="fa fa-caret-down"></i></button>
     <div *ngIf="show">
     <a routerLink="uploadFiles" class="w3-bar-item w3-button" *ngIf="bUploadExcel">Upload Leads (Excel file)</a>
   <a routerLink="rawLead" class="w3-bar-item w3-button">Raw Leads: {{leadsCount.rawLeadsCount}}</a>
@@ -58,10 +62,12 @@ background:#00Bfff;color:#131e42;width:265px;box-shadow: 2px 2px 2px 2px #cccccc
   </div>
 </div>  
 
-    <a routerLink="sales" class="w3-bar-item w3-button" ><i class="fa fa-map-marker">
-
-    </i> &nbsp;Where is my team locations?</a>
-    <a routerLink="" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> &nbsp;Logout</a>
+    <a routerLink="sales" class="w3-bar-item w3-button" > <img src="assets/icons/Team Location.svg" 
+      style="height: 20px;"> &nbsp;Where is My Team</a>
+    <a routerLink="leadsuserproject" *ngIf='showToAdminOnly'  class="w3-bar-item w3-button"><img src="assets/icons/projects.svg" 
+      style="height: 20px;"> &nbsp;Project and User Leads</a>
+    <a routerLink="" class="w3-bar-item w3-button"><img src="assets/icons/Logout.svg" 
+      style="height: 20px;"> &nbsp;Logout</a>
     <div style="margin-bottom: 20px;"></div>
 </div>
 
@@ -78,15 +84,17 @@ background:#00Bfff;color:#131e42;width:265px;box-shadow: 2px 2px 2px 2px #cccccc
    <div style="float:right"> <h5 style="float:left; margin-right:8px;margin-top:15px">
       <h5  style="float: left; margin-right:8px;"><a routerLink="home"
         style="color:#131e42;">
-          <i class="fa fa-home" style="color:#131e42;"></i>   Home | </a>
+        <img src="assets/icons/Home.svg" 
+        style="height: 20px;">   Home | </a>
       </h5>
       <h5 style="float: left; margin-right:8px;">
         {{loginCompanyName}} |
       </h5>
-       <i class="fa fa-user" style="margin-right:8px" aria-hidden="true"></i>{{user}} |</h5>
-    <h5 style="float:left; margin-right:8px;margin-top:15px"><i class="fa fa-sign-out" aria-hidden="true">
-
-    </i><a routerLink="" ><span style="color:#131e42;">Logout</span></a></h5>
+      <img src="assets/icons/User.svg" 
+      style="height: 20px;"> &nbsp;{{user}} |</h5>
+      
+    <h5 style="float:left; margin-right:8px;margin-top:15px"><img src="assets/icons/Logout.svg" 
+      style="height: 20px;"><a routerLink="" ><span style="color:#131e42;">Logout</span></a></h5>
   </div>
   </div>
 </div>

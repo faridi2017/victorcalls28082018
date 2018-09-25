@@ -9,8 +9,10 @@
           <div class="row">
          <div class="col-5"> <h5 class="card-title" style="color:#131e42">Manage Companies:&nbsp;{{length}}</h5></div>
         <div class="col-3"> <button (click)="createCompany()" type="button" class="btn  block">
-          <i class="fa fa-plus" style="color:#dc6f33; font-size: 14px"></i>   Create Company</button></div>
+          <img src="assets/icons/Create Companies.svg" style="height: 18px;">   Create Company</button></div>
+         
 
+        
           </div>
           <div class="row">
             <div class="col-12 table-responsive">
@@ -36,27 +38,28 @@
                          <td >{{myList.contactPersonName}}</td>
                          <td >
                           <button (click)="updateCompany(myList.companyId)" type="button" 
-                          class="btn btn-primary block" > <i class="fa fa-pencil-square-o" 
-                          style="color:#dc6f33; font-size: 12px"></i>  Update</button>
+                          class="btn btn-primary block" > <img src="assets/icons/Update.svg" 
+                          style="height: 14px;margin-left: -10px">Update</button>
                           
                              <button  type="button" 
                            class="btn btn-danger block" (click)="delete(myList)" data-toggle="modal"
                             data-target="#myModal1" >
-                            <i class="fa fa-trash" style="color:#dc6f33; font-size: 12px"></i> Delete</button>
+                            <img src="assets/icons/Delete 2.svg" 
+                          style="height: 14px;margin-left: -10px"> Delete</button>
                              <button (click) = "integration(myList.companyId,myList.companyName)" 
-                             type="button" class="btn btn-success block"> <i class="fa fa-code-fork" 
-                             style="color:#dc6f33; font-size: 12px"></i> Integration</button>
+                             type="button" class="btn btn-success block"><img src="assets/icons/Integration.svg" 
+                             style="height: 14px;margin-left: -14px">Integration</button>
                          </td>
                      </tr>
-                </tbody>
-              </table>
-            </div>
+                 </tbody>
+               </table>
+             </div>
             <div>
-                             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
     <!-- content-wrapper ends -->
     
   </div>

@@ -51,6 +51,10 @@ export class FollowupComponent implements OnInit {
    constructor(private leadService: VictorServiceService, private router: Router,
     private spinner: NgxSpinnerService) {
      
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
     
      this.selectedLead = [];
     // this.dropdownListA = [];
@@ -74,7 +78,10 @@ export class FollowupComponent implements OnInit {
    ngOnInit() {
  //reload page each time
  
- 
+ if(sessionStorage.getItem('userName')===null){
+  console.log('sesson strorage', sessionStorage.getItem('userName'));
+  this.router.navigate(['']);
+}
  
  //reload page on each click
  

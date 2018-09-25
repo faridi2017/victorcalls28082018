@@ -58,6 +58,11 @@ loading = false;
  
    constructor(private currentLeadService: VictorServiceService, private router: Router,) {
      //this.myLead = new MyLead[10];
+
+     if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
      this.newlist = [];
      this.myLead=[];
      this.selectedCompanyId=sessionStorage.getItem('CompanyId');
@@ -114,6 +119,11 @@ loading = false;
     } // end of constructor
  
    ngOnInit() {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
   
      this.dropdownSettings = {
        singleSelection: false,

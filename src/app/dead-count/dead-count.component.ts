@@ -43,7 +43,10 @@ export class DeadCountComponent implements OnInit {
     arr = [];
   
     constructor(private rawLeadService: VictorServiceService, private router: Router) {
-           
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
       this.selectedLead = [];
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
         return false;
@@ -61,7 +64,10 @@ export class DeadCountComponent implements OnInit {
   
     ngOnInit() {
    
-  
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
   //reload page on each click
   
   

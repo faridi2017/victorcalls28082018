@@ -46,6 +46,10 @@ export class RentCountComponent implements OnInit {
  
    constructor(private rawLeadService: VictorServiceService, private router: Router,
   private spinner:NgxSpinnerService) {
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
      this.statusIdRentCountLead='13';
      this.selectedLead = [];
      this.router.routeReuseStrategy.shouldReuseRoute = function(){
@@ -63,6 +67,11 @@ export class RentCountComponent implements OnInit {
     } // end of constructor
  
    ngOnInit() {
+     
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
  //reload page each time
  
  this.spinner.show();

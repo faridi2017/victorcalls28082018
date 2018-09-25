@@ -57,6 +57,11 @@ projects: string[];
 projectList: Project[];
 
   constructor(private usersrv: VictorServiceService, private router:Router) { 
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.user =new Registration();
     this.allRoles=[];
    
@@ -112,6 +117,11 @@ projectList: Project[];
   }
 
   ngOnInit() {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
      
   }
   confirmPassword(event: any){

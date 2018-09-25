@@ -27,10 +27,19 @@ export class MyfileComponent implements OnInit {
 
   
   constructor(private httpService: HttpClient, private router: Router, private srv: VictorServiceService) { 
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
    this.fileList = [];
   }
 
   ngOnInit() {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
   }
 
   getFileDetails (e) {

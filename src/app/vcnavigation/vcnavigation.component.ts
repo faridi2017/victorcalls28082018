@@ -13,7 +13,7 @@ export class VcnavigationComponent implements OnInit {
 leadsCount:UserLeads;
 vedagya19 = false;
 show=false;
-showIntegration=false;
+showToAdminOnly=false;
 userRole;
 companies: Company[];
 public user;
@@ -22,12 +22,17 @@ loginCompanyName;
 bUploadExcel=true;
 showCompany;
   constructor(private getCounts:VictorServiceService,private router:Router) {
+   // sessionStorage.clear();
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.user =sessionStorage.getItem('userName');
     this.userRole = sessionStorage.getItem('role');
     if(this.userRole==='Admin'){
-        this.showIntegration= true;
+        this.showToAdminOnly= true;
     }else{
-      this.showIntegration=false;
+      this.showToAdminOnly=false;
     }
     this.getCounts.getAllCompanies().subscribe((data: Company[])=>{
       this.companies = data;
@@ -83,6 +88,7 @@ this.router.navigate['admin'];
   }
   logOut() {
     sessionStorage.clear();
+   // sessionStorage.
     this.router.navigate(['']);
   }
   showHide(){

@@ -45,6 +45,11 @@ export class OtherProjectCountComponent implements OnInit {
   
     constructor(private rawLeadService: VictorServiceService, private router: Router,
       private spinner: NgxSpinnerService) {
+
+        if(sessionStorage.getItem('userName')===null){
+          console.log('sesson strorage', sessionStorage.getItem('userName'));
+          this.router.navigate(['']);
+        }
       
       this.selectedLead = [];
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
@@ -64,7 +69,10 @@ export class OtherProjectCountComponent implements OnInit {
     ngOnInit() {
   //reload page each time
  
-  
+  if(sessionStorage.getItem('userName')===null){
+    console.log('sesson strorage', sessionStorage.getItem('userName'));
+    this.router.navigate(['']);
+  }
   
   //reload page on each click
   

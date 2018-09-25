@@ -23,6 +23,11 @@ length;
 display;
   constructor(private userService:VictorServiceService, private router: Router,
   private spinner:NgxSpinnerService) {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.users = [];
     this.sUser = new Registration();
     this.sUser.role = new Role();
@@ -60,6 +65,11 @@ display;
    }
 
   ngOnInit() {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
      /** spinner starts on init */
      this.spinner.show();
  

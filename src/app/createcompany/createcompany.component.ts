@@ -41,7 +41,11 @@ export class CreatecompanyComponent implements OnInit {
   activation="";
  company:Company;
   constructor(private router: Router, private cmpService: VictorServiceService,
-  private spinner:NgxSpinnerService) { 
+  private spinner:NgxSpinnerService) {
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    } 
     this.company = new Company();
     this.createCompanyForm=new FormGroup({
       'companyName':new FormControl('',Validators.compose([Validators.required])),
@@ -59,6 +63,11 @@ export class CreatecompanyComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     /** spinner starts on init */
     this.spinner.show();
  
@@ -66,6 +75,8 @@ export class CreatecompanyComponent implements OnInit {
         /** spinner ends after 5 seconds */
         this.spinner.hide();
     }, 1000);
+
+    
   }
  
   createCompany(createCompanyForm){

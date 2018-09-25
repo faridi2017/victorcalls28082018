@@ -20,6 +20,11 @@ numberOfRecord;
 //https://www.npmjs.com/package/excel-as-json
   constructor(private docService: VictorServiceService,
      private prjService: VictorServiceService,private router:Router){
+
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
 this.newDoc = new Document();
 this.documents = [];
 //this.data.currentMessage.subscribe(message => this.message = message);
@@ -29,6 +34,11 @@ this.documents = [];
    }
 
   ngOnInit() {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
    console.log('document of project',sessionStorage.getItem('prjID'));
     this.docService.getDocumentsOfProject(sessionStorage.getItem('prjID')).subscribe((data: Document[])=>{
       this.documents = data;

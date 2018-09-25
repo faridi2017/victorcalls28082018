@@ -45,6 +45,10 @@ project: Project;
   distance;
   earthRadius = 6373.0; // in km approx
   constructor(private userService: VictorServiceService, private router: Router ) {
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.project = new Project();
     this.createProjectForm=new FormGroup({
       'locationName':new FormControl('',Validators.compose([Validators.required])),
@@ -81,6 +85,11 @@ project: Project;
    }
 
   ngOnInit() {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.userService.getIpAddress().subscribe(data => {
       console.log(data);
     });
@@ -214,7 +223,7 @@ console.log('selected Company Id:',this.project.companyId);
 
 }
 validateDes(){
-  let rex = /^[^&-_@\s][A-Za-z0-9.&@-_#\s]{2,100}$/;
+  let rex = /^[^&-_@,\s][0-9a-zA-Z #,-]{2,100}$/;
     console.log(this.project.description);
      
     if(rex.test(this.project.description)==true)
@@ -230,7 +239,7 @@ validateDes(){
 
 }
 validateDis(){
-  let rex = /^[^&-_@\s][A-Za-z0-9.&@-_#\s]{2,100}$/;
+  let rex = /^[^&-_@,\s][A-Za-z]{2,100}$/;
   console.log(this.project.district);
    
   if(rex.test(this.project.district)==true)

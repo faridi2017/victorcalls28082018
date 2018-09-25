@@ -4,6 +4,7 @@ import { User } from '../modal/User';
 import { VictorServiceService } from '../apiService/victor-service.service';
 import { Registration } from '../modal/Registration';
 import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-leads',
   templateUrl: './leads.component.html',
@@ -16,7 +17,11 @@ export class LeadsComponent implements OnInit {
   selectedUserName;
   selectedProjectName;
 
-  constructor(private srv: VictorServiceService) { 
+  constructor(private srv: VictorServiceService,private router:Router) { 
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.srv.getAllUserCmp(sessionStorage.getItem('CompanyId')).subscribe((data: Registration[])=>{
       this.users = data;
      // this.loading=false;
@@ -44,6 +49,10 @@ export class LeadsComponent implements OnInit {
   }//end of constructor
 
   ngOnInit() {
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
 
   }
 

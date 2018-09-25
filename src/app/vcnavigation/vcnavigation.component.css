@@ -1,11 +1,7 @@
 a:active{color:white};
 a:link{color:white}
 .w3-bar-item,.w3-button  a:hover{
-    
     color:#131e42;
-    background-image: linear-gradient(to bottom right, #00Bfff,  #87ceeb);
-    
-    
 }
 
 .w3-teal .w3-xlarge{

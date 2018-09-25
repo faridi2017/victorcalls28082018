@@ -18,10 +18,18 @@ export class CreateDocumentComponent implements OnInit {
   loading;
   newDocument: Projdocument;
   constructor(private router:Router,private srv:VictorServiceService) {
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.newDocument = new Projdocument();
    }
 
   ngOnInit() {
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
 
   }
   getFileDetails (e) {

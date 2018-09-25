@@ -43,6 +43,11 @@ blist;
   
     constructor(private rawLeadService: VictorServiceService, private router: Router,
       private spinner: NgxSpinnerService) {
+
+        if(sessionStorage.getItem('userName')===null){
+          console.log('sesson strorage', sessionStorage.getItem('userName'));
+          this.router.navigate(['']);
+        }
       
       this.selectedLead = [];
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
@@ -62,7 +67,10 @@ blist;
     ngOnInit() {
   //reload page each time
   
-  
+  if(sessionStorage.getItem('userName')===null){
+    console.log('sesson strorage', sessionStorage.getItem('userName'));
+    this.router.navigate(['']);
+  }
   
   //reload page on each click
   

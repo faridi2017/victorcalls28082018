@@ -18,8 +18,14 @@ public leadsCount: UserLeads;
 todayDate;
 loading=false;
   constructor(private router: Router, private getCounts: VictorServiceService) { 
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.leadsCount = new UserLeads;
-
+    if(sessionStorage.getItem('userName')===null){
+      this.router.navigate(['']);
+    }
     this.todayDate=new Date().toLocaleDateString();
     this.loading = true;
     this.getCounts.getDetails(sessionStorage.getItem('userName')).subscribe((data: UserLeads) => {
@@ -41,6 +47,10 @@ loading=false;
 
   ngOnInit() {
   
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
             
 
   } // end of ngOnInit

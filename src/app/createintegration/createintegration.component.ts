@@ -46,6 +46,10 @@ bsRangeValue: Date[];
 //sessionStorage.setItem('cmpNameForInteg',this.companyName);
 //y2PMAab10Yk~~~~~~3D
   constructor(private router: Router, private srv: VictorServiceService, private datePipe: DatePipe) {
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.listIntegration=[];
     this.newIntegration = new Integrations();
     this.newIntegration.sourceType = new IdName();
@@ -75,6 +79,10 @@ bsRangeValue: Date[];
 
   ngOnInit() {
     
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
   }
   testIntegrationWithDate(){
     return;

@@ -46,6 +46,10 @@ export class VisitdoneComponent implements OnInit {
     constructor(private rawLeadService: VictorServiceService, private router: Router,
       private spinner: NgxSpinnerService) {
       
+        if(sessionStorage.getItem('userName')===null){
+          console.log('sesson strorage', sessionStorage.getItem('userName'));
+          this.router.navigate(['']);
+        }
       this.selectedLead = [];
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
         return false;
@@ -62,6 +66,11 @@ export class VisitdoneComponent implements OnInit {
      } // end of constructor
   
     ngOnInit() {
+
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
   //reload page each time
   
   this.spinner.show();

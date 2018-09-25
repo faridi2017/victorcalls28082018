@@ -46,6 +46,10 @@ export class VisitonComponent implements OnInit {
     constructor(private rawLeadService: VictorServiceService, private router: Router,
       private spinner: NgxSpinnerService) {
       
+        if(sessionStorage.getItem('userName')===null){
+          console.log('sesson strorage', sessionStorage.getItem('userName'));
+          this.router.navigate(['']);
+        }
       this.selectedLead = [];
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
         return false;
@@ -64,6 +68,10 @@ export class VisitonComponent implements OnInit {
     ngOnInit() {
   //reload page each time
   
+  if(sessionStorage.getItem('userName')===null){
+    console.log('sesson strorage', sessionStorage.getItem('userName'));
+    this.router.navigate(['']);
+  }
   
   //reload page on each click
   

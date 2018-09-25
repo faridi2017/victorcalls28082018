@@ -66,10 +66,12 @@ import { CreateDocumentComponent } from './create-document/create-document.compo
 import { TemptestComponent } from './temptest/temptest.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { LeadsComponent } from './leads/leads.component';
+import { SuperadminComponent } from './superadmin/superadmin.component';
 
 
 const appRoutes: Routes = [
-{ path: '', component: LoginComponent },
+  {path: 'superadmin' , component:SuperadminComponent},
+  { path: '', component: LoginComponent },
   { path: 'userhome', component: VchomeComponent,
  
   children: [{path: '', component: MainComponent},
@@ -106,7 +108,8 @@ const appRoutes: Routes = [
           {path: 'vcdashboard',component: VcdashboardComponent},
           {path: 'createDocument',component: CreateDocumentComponent},
           {path: 'temptest',component: TemptestComponent},
-          {path: 'leadsuserproject',component: LeadsComponent}
+          {path: 'leadsuserproject',component: LeadsComponent},
+          
         //  {path: 'logout', component: }
     ]},
 
@@ -163,7 +166,8 @@ const appRoutes: Routes = [
     VchomeComponent,
     CreateDocumentComponent,
     TemptestComponent,
-    LeadsComponent
+    LeadsComponent,
+    SuperadminComponent
    
      ],
   imports: [

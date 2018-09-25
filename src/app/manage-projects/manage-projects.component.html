@@ -7,11 +7,11 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col-3">
+            <div class="col-md-3 col-sm-10 col-xs-12">
               <h5 class="card-title" style="color:#131e42">Manage Projects:&nbsp;{{length}}</h5></div>
             <div class="col-3"> <button class="btn btn-primary" style="margin-left: 10px;" (click)="createProject()">
-              <i class="fa fa-plus" style="color:#dc6f33; font-size: 14px"></i>  Create project</button></div>
-           <div class="col-6">
+                <img src="assets/icons/Create Companies.svg" style="height: 18px;">  Create project</button></div>
+           <div class="col-md-6 col-sm-10 col-xs-12">
               <label *ngIf="companies">Select Company</label>&nbsp;
               <select *ngIf="companies"  [(ngModel)]="companyName" 
                  required="" placeholder="select Company" 
@@ -47,7 +47,7 @@
                          <td >
                           <button (click)="getDocuments(myList.projectId)" type="button" 
                           class="btn btn-success block" > 
-                          <i class="fa fa-pencil-square-o" style="color:#dc6f33; font-size: 14px"></i> 
+                          <img src="assets/icons/Update.svg" style="height: 16px;">
                           Get Documents</button>
                          </td>
                      

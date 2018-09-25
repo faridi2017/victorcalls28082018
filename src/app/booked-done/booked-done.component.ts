@@ -44,7 +44,10 @@ export class BookedDoneComponent implements OnInit {
   
     constructor(private leadService: VictorServiceService, private router: Router) {
       //this.myLead = new MyLead[10];
-     
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }   
       this.selectedLead = [];
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
         return false;
@@ -61,6 +64,11 @@ export class BookedDoneComponent implements OnInit {
      } // end of constructor
   
     ngOnInit() {
+
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
   
       this.dropdownSettings = {
         singleSelection: false,

@@ -21,6 +21,12 @@ sourceList=['99 acres', 'Facebook', 'Excelsheet', 'Google', 'Magic Bricks'];
 //sourceType: IdName;
   constructor(private srv: VictorServiceService, private router: Router,
   private spinner:NgxSpinnerService) { 
+ 
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
+
     if(sessionStorage.getItem('role')==='Admin'){
      // this.showIntegration= true;
      this.companyName=sessionStorage.getItem('loginCompany');
@@ -46,6 +52,11 @@ sourceList=['99 acres', 'Facebook', 'Excelsheet', 'Google', 'Magic Bricks'];
   }
 
   ngOnInit() {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
   
   }
   showForm(){

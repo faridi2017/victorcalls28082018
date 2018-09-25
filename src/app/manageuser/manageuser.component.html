@@ -11,7 +11,7 @@
           <h5 class="card-title" style="color:#131e42">Manage Users:&nbsp; {{length}}</h5></div>
           <div class="col-md-1">
           <button (click)="createUser()" type="button" class="btn btn-success block">
-            <i class="fa fa-plus" style="color:#dc6f33; font-size: 14px"></i>Create User</button>
+              <img src="assets/icons/Create Companies.svg" style="height: 18px;"> Create User</button>
           </div>
           <div class="col-7" *ngIf="companies"  style="margin-left: 50px">
             <label>Select Company</label>&nbsp;
@@ -51,12 +51,11 @@
                          <td >
                           <button (click)="updateUser(myList.id)" type="button" 
                           class="btn btn-primary block" >
-                          <i class="fa fa-pencil-square-o" 
-                          style="color:#dc6f33; font-size: 12px"></i>  Update</button>
+                          <img src="assets/icons/Update.svg" style="height: 16px;">Update</button>
                             
                           <button (click)="deleteUser(myList)" type="button" class="btn btn-danger block"
                            data-toggle="modal" data-target="#myModal" >
-                           <i class="fa fa-trash" style="color:#dc6f33; font-size: 12px"></i>  Delete</button>
+                           <img src="assets/icons/Delete 2.svg" style="height: 16px;">Delete</button>
                            
                          </td>
                      

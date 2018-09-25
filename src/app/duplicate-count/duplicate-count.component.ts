@@ -43,7 +43,10 @@ blist;
   
     constructor(private leadService: VictorServiceService, private router: Router) {
       //this.myLead = new MyLead[10];
-      
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
       this.selectedLead = [];
       this.router.routeReuseStrategy.shouldReuseRoute = function(){
         return false;
@@ -62,7 +65,10 @@ blist;
     ngOnInit() {
   //reload page each time
  
-  
+  if(sessionStorage.getItem('userName')===null){
+    console.log('sesson strorage', sessionStorage.getItem('userName'));
+    this.router.navigate(['']);
+  }
   
   //reload page on each click
   

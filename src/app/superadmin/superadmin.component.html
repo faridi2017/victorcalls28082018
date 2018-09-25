@@ -1,0 +1,67 @@
+<div class="main-panel">
+  <div class="content-wrapper co">
+    <div class="row mb-4">
+      <div class="col-12 d-flex align-items-center justify-content-between">
+        <h4 class="page-title">Dashboard</h4>
+        <div class="d-flex align-items-center">
+          <div class="wrapper mr-4 d-none d-sm-block">
+            <p class="mb-0">Summary for
+              <b class="mb-0">{{todayDate | date}}</b>
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 card-statistics">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3 grid-margin stretch-card card-tile">
+            <div class="card-body">
+                <div class="d-flex justify-content-between pb-2">
+                  <h5>User List</h5>
+                  <select class="form-control">
+                    <option>----</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3 grid-margin stretch-card card-tile">
+            <div class="card-body">
+                <div class="d-flex justify-content-between pb-2">
+                  <h5>Project List</h5>
+                  <select class="form-control">
+                    <option>----</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3 grid-margin stretch-card card-tile">
+            <div class="card-body">
+                <div class="d-flex justify-content-between pb-2">
+                  <h5><button class="btn" (click)="navigateLead('userhome/location')">Add Project</button></h5>
+                </div>
+              </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3 grid-margin stretch-card card-tile">
+            <div class="card-body">
+               <div class="d-flex justify-content-between pb-2">
+                 <h5><button class="btn" (click)="navigateLead('userhome/home')">CRM</button></h5>
+               </div>
+             </div>
+         </div>
+        </div>
+      </div>
+    </div>
+    
+   
+    
+    
+  </div><!--Content-warpper-->
+
+</div>
+<!-- main-panel ends -->
+
+
+
+

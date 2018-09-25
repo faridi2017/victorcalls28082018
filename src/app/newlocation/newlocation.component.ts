@@ -4,6 +4,7 @@ import { VictorServiceService } from '../apiService/victor-service.service';
 import { Location } from '../modal/Location';
 import { Salesperson } from '../modal/salesperson';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-newlocation',
@@ -42,7 +43,12 @@ salesPerson: Salesperson[];
                                  {lattitude: 28.1258140, longitude: 78.0090430},
                                  {lattitude: 28.3358140, longitude: 77.8890430},
                                  {lattitude: 28.4758140, longitude: 77.1990430}];
-  constructor(private locationSrv: VictorServiceService, private spinner:NgxSpinnerService) { 
+  constructor(private locationSrv: VictorServiceService, private spinner:NgxSpinnerService, private router:Router) { 
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.l1 = new Location();
   //  this.locations = [];
     this.salesPerson = [];
@@ -73,7 +79,10 @@ salesPerson: Salesperson[];
 
   ngOnInit() {
 
-    
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
    
   }
  

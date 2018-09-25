@@ -24,6 +24,11 @@ export class UpdateuserComponent implements OnInit {
   projects: string[];
   projectList: Project[];
     constructor(private usersrv: VictorServiceService, private router: Router) { 
+
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
       this.user =new Registration();
       this.user.role = new Role();
       this.users = [];
@@ -66,6 +71,11 @@ export class UpdateuserComponent implements OnInit {
     }
   
     ngOnInit() {
+
+      if(sessionStorage.getItem('userName')===null){
+        console.log('sesson strorage', sessionStorage.getItem('userName'));
+        this.router.navigate(['']);
+      }
     }
     confirmPassword(event: any){
        //console.log('cp',event.target.value);

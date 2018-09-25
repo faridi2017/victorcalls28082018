@@ -16,6 +16,11 @@ sCompany : Company;
 loading=false;
 length;
   constructor(private cmpsrv: VictorServiceService, private router: Router) {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.companies = [];
     this.sCompany = new Company();
     this.loading=true;
@@ -38,6 +43,11 @@ length;
    }
 
   ngOnInit() {
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
   
   }
   updateCompany(id){

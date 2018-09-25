@@ -5,21 +5,24 @@
 <div class="content-wrapper">
   <div class="card">
     <div style="padding-top: 20px;" > 
-      <div class="col-sm-12">
-        <label *ngIf='true' >User</label>&nbsp;
+      <div class="row">
+        <div class="col-md-12">
+            &nbsp;&nbsp;&nbsp;&nbsp;  <label *ngIf='true' >User</label>&nbsp;
         <select *ngIf='users' [(ngModel)]="selectedUserName" 
-           required="" (change)="selectedUser()">
+           required="" (change)="selectedUser()" style="width:150px">
           <option>------</option>
           <option *ngFor="let user of users">{{user.userName}}</option>
         </select>
-        <label *ngIf='true' >Project</label>&nbsp;
+      
+        
+      &nbsp;&nbsp;&nbsp;&nbsp;  <label *ngIf='true' >Project</label>&nbsp;
         <select *ngIf='projects' [(ngModel)]="selectedProjectName" 
-           required="" (change)="selectedProject()">
+           required="" (change)="selectedProject()" style="width:150px">
           <option>------</option>
           <option *ngFor="let project of projects">{{project.projectName}}</option>
         </select>
-        <button class="btn btn-primary" (click)="getLeads()">Get data</button>
-         
+        &nbsp;&nbsp;<button class="btn btn-primary" (click)="getLeads()">Get data</button>
+      
       </div> 
          
     </div>

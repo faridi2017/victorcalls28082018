@@ -44,6 +44,11 @@ updateCompanyForm;
   activation="";
   updateIndex;
   constructor(private router : Router, private cmpService : VictorServiceService,) { 
+
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
     this.company = new Company;
     this.cmpService.getAllCompanies().subscribe((data: Company[])=>{
       // console.log(data);
@@ -84,6 +89,10 @@ updateCompanyForm;
 
   ngOnInit() {
    
+    if(sessionStorage.getItem('userName')===null){
+      console.log('sesson strorage', sessionStorage.getItem('userName'));
+      this.router.navigate(['']);
+    }
   }
   updateCompany(updateCompanyForm){
     this.companyName=updateCompanyForm.companyName;
